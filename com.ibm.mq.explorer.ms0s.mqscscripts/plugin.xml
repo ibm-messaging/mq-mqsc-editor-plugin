@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+<plugin>
+
+     <extension
+         point="com.ibm.mq.explorer.ui.registerplugin">
+      <pluginDetails
+            pluginId="com.ibm.mq.explorer.ms0s.mqscscripts"
+            name="Support Pack MS0S"
+            enabledByDefault="true"
+            description="MQSC Scripts Plug-in"
+            class="com.ibm.mq.explorer.ms0s.mqscscripts.MQSCExplorerNotify"
+            vendor="*IBM Internal">
+      </pluginDetails>
+   </extension>
+   <extension
+         point="com.ibm.mq.explorer.ui.addtreenode">
+      <treeNode
+            pluginId="com.ibm.mq.explorer.ms0s.mqscscripts"
+            name="Scripts Folder Tree Node"
+            class="com.ibm.mq.explorer.ms0s.mqscscripts.tree.MQSCScriptsTreeNodeFactory"
+            treeNodeId="com.ibm.mq.explorer.ms0s.mqscscripts.scriptTreeNodeFolder">
+      </treeNode>
+      <treeNode
+            pluginId="com.ibm.mq.explorer.ms0s.mqscscripts"
+            name="Scripts File Tree Node"
+            class="com.ibm.mq.explorer.ms0s.mqscscripts.tree.MQSCScriptsFileNodeFactory"
+            treeNodeId="com.ibm.mq.explorer.ms0s.mqscscripts.scriptTreeNodeFile">
+      </treeNode>
+   </extension>
+   <extension
+         point="com.ibm.mq.explorer.ui.addcontentpage">
+      <contentPage
+            pluginId="com.ibm.mq.explorer.ms0s.mqscscripts"
+            name="MQSC Folder Content Page"
+            class="com.ibm.mq.explorer.ms0s.mqscscripts.pages.FolderContentPageFactory"
+            contentPageId="com.ibm.mq.explorer.ms0s.mqscscripts.folderTreeContentPage">
+      </contentPage>
+      <contentPage
+            pluginId="com.ibm.mq.explorer.ms0s.mqscscripts"
+            name="MQSC File Content Page"
+            class="com.ibm.mq.explorer.ms0s.mqscscripts.pages.FileContentPageFactory"
+            contentPageId="com.ibm.mq.explorer.ms0s.mqscscripts.fileNodeTreeContentPage">
+      </contentPage>
+   </extension>
+   <extension
+         point="org.eclipse.ui.popupMenus">
+      <objectContribution
+            objectClass="com.ibm.mq.explorer.ui.extensions.TreeNode"
+            adaptable="true"
+            id="com.ibm.mq.explorer.ms0s.mqscscripts.FileScriptsContribution">
+         <visibility>
+            <and>
+               <objectState
+                     name="PluginEnabled"
+                     value="com.ibm.mq.explorer.ms0s.mqscscripts">
+               </objectState>
+               <objectClass
+                     name="com.ibm.mq.explorer.ms0s.mqscscripts.tree.MQSCScriptsTreeNodeFile">
+               </objectClass>
+            </and>
+         </visibility>
+         <action
+               label="Open Script"
+               class="com.ibm.mq.explorer.ms0s.mqscscripts.actions.OpenScriptAction"
+               menubarPath="additions"
+               id="com.ibm.mq.explorer.ms0s.mqscscripts.OpenScriptAction">
+         </action>
+         <action
+               class="com.ibm.mq.explorer.ms0s.mqscscripts.actions.DeleteScriptAction"
+               id="com.ibm.mq.explorer.ms0s.mqscscripts.DeleteScriptAction"
+               label="Delete Script"
+               menubarPath="additions">
+         </action>
+      </objectContribution>
+      <objectContribution
+            objectClass="com.ibm.mq.explorer.ui.extensions.TreeNode"
+            adaptable="false"
+            id="com.ibm.mq.explorer.ms0s.mqscscripts.FolderScriptContribution">
+         <visibility>
+            <and>
+               <objectState
+                     name="PluginEnabled"
+                     value="com.ibm.mq.explorer.ms0s.mqscscripts">
+               </objectState>
+               <objectClass
+                     name="com.ibm.mq.explorer.ms0s.mqscscripts.tree.MQSCScriptsTreeNodeProjectFolder">
+               </objectClass>
+            </and>
+         </visibility>
+         <action
+               class="com.ibm.mq.explorer.ms0s.mqscscripts.actions.NewFolderAction"
+               id="com.ibm.mq.explorer.ms0s.mqscscripts.actions.NewFolderAction"
+               label="New Folder">
+         </action>
+         <action
+               label="New Script File"
+               class="com.ibm.mq.explorer.ms0s.mqscscripts.actions.NewScriptFileAction"
+               id="com.ibm.mq.explorer.ms0s.mqscscripts.actions.NewScriptAction">
+         </action>
+         <action
+               label="Import Script File"
+               class="com.ibm.mq.explorer.ms0s.mqscscripts.actions.ImportScriptAction"
+               id="com.ibm.mq.explorer.ms0s.mqscscripts.ImportScriptAction">
+         </action>
+         <action
+               class="com.ibm.mq.explorer.ms0s.mqscscripts.actions.DeleteFolderAction"
+               id="com.ibm.mq.explorer.ms0s.mqscscripts.DeleteFolderAction"
+               label="Delete Folder"
+               menubarPath="additions">
+         </action>
+      </objectContribution>
+      <objectContribution
+            objectClass="com.ibm.mq.explorer.ui.extensions.TreeNode"
+            adaptable="false"
+            id="com.ibm.mq.explorer.ms0s.mqscscripts.RunMenuContributoin">
+         <visibility>
+            <and>
+               <objectState
+                     name="PluginEnabled"
+                     value="com.ibm.mq.explorer.ms0s.mqscscripts">
+               </objectState>
+               <objectClass
+                     name="com.ibm.mq.explorer.ms0s.mqscscripts.tree.MQSCScriptsTreeNodeFile">
+               </objectClass>
+               <pluginState
+                     value="installed"
+                     id="com.ibm.mq.explorer.ms0s.mqsceditor">
+               </pluginState>
+            </and>
+         </visibility>
+         <action
+               label="Run Script..."
+               class="com.ibm.mq.explorer.ms0s.mqscscripts.actions.RunScriptAction"
+               menubarPath="additions"
+               id="com.ibm.mq.explorer.ms0s.mqscscripts.actions.RunScriptFile">
+         </action>
+      </objectContribution>
+      <objectContribution
+            adaptable="false"
+            id="com.ibm.mq.explorer.ms0s.mqscscripts.RootFolderContribution"
+            objectClass="com.ibm.mq.explorer.ui.extensions.TreeNode">
+         <visibility>
+            <and>
+               <objectState
+                     name="PluginEnabled"
+                     value="com.ibm.mq.explorer.ms0s.mqscscripts">
+               </objectState>
+               <objectClass
+                     name="com.ibm.mq.explorer.ms0s.mqscscripts.tree.MQSCScriptsTreeNodeRootFolder">
+               </objectClass>
+            </and>
+         </visibility>
+         <action
+               class="com.ibm.mq.explorer.ms0s.mqscscripts.actions.NewProjectAction"
+               id="com.ibm.mq.explorer.ms0s.mqscscripts.NewProject"
+               label="New Project">
+         </action>
+         <action
+               class="com.ibm.mq.explorer.ms0s.mqscscripts.actions.NewScriptFileAction"
+               id="com.ibm.mq.explorer.ms0s.mqscscripts.actions.NewScriptAction"
+               label="New Script File">
+         </action>
+         <action
+               class="com.ibm.mq.explorer.ms0s.mqscscripts.actions.ImportScriptAction"
+               id="com.ibm.mq.explorer.ms0s.mqscscripts.ImportScriptAction"
+               label="Import Script File">
+         </action>
+         <action
+               class="com.ibm.mq.explorer.ms0s.mqscscripts.actions.DeleteProjectAction"
+               id="com.ibm.mq.explorer.ms0s.mqscscripts.DeleteProjectAction"
+               label="Delete Project"
+               menubarPath="additions">
+         </action>
+      </objectContribution>
+   </extension>
+   <extension
+         point="org.eclipse.ui.newWizards">
+      <category
+            name="MQSC"
+            id="newMQSCFileWizard">
+      </category>
+      <wizard
+            name="MQSC Script File"
+            icon="mqsc.gif"
+            category="newMQSCFileWizard"
+            class="com.ibm.mq.explorer.ms0s.mqscscripts.gui.NewScriptFileWizard"
+            id="com.ibm.mq.explorer.ms0s.mqscscripts.gui.NewScriptFileWizard">
+      </wizard>
+   </extension>
+   <extension
+         point="org.eclipse.ui.preferencePages">
+      <page
+            class="com.ibm.mq.explorer.ms0s.mqscscripts.preferences.MQSCEditorPreferences"
+            id="com.ibm.mq.explorer.ms0s.mqscscripts.preferences.MQSCEditorPreferences"
+            name="WebSphere MQ MQSC Script Editor">
+      </page>
+   </extension>
+   <extension
+         point="org.eclipse.core.runtime.preferences">
+      <initializer
+            class="com.ibm.mq.explorer.ms0s.mqscscripts.preferences.PreferenceInitializer">
+      </initializer>
+   </extension>
+
+</plugin>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+<plugin>
+   <extension
+         point="org.eclipse.ui.editors">
+      <editor
+            icon="icons/obj16/mqsc.gif"
+            class="com.ibm.mq.explorer.ms0s.mqsceditor.MQSCEditor"
+            default="true"
+            name="MQSC Editor"
+            contributorClass="com.ibm.mq.explorer.ms0s.mqsceditor.MQSCActionContributor"
+            id="com.ibm.mq.explorer.ms0s.mqsceditor.MQSCEditor"
+            extensions="mqsc,tst,mqs,MQSC,TST,MQS"/>
+   </extension>
+   <extension
+         name="MQSC Document Setup Participant"
+         point="org.eclipse.core.filebuffers.documentSetup">
+      <participant
+            class="com.ibm.mq.explorer.ms0s.mqsceditor.MQSCDocumentSetupParticipant"
+            extensions="mqsc,tst,mqs,MQSC,TST,MQS"/>
+   </extension>
+
+</plugin>
