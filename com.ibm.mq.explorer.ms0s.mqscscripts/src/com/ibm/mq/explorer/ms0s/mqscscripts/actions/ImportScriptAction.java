@@ -35,12 +35,25 @@ import com.ibm.mq.explorer.ui.Common;
 import com.ibm.mq.explorer.ui.extensions.TreeNode;
 
 /**
- * @author jlowrey
- *
+ * @author Jeff Lowrey
  */
+
+/**
+ * <p> 
+ * * This class implements an IActionDelegate to execute the Import Script menu
+ * option available on the MQSC Script/MQSC Script Files or an Eclipse Project or folder tree node.
+ * <p>
+ * This imports individual script files into the Eclipse Workspace. 
+ **/
 public class ImportScriptAction implements IActionDelegate {
     IStructuredSelection mySel = null;
     private static CommonNavigator MQView;
+
+	/*
+	 * <p> Get the MQExplorer Navigator View, for updating/manipulating parts of
+	 * it. This probably needs to be abstracted to a common source file
+	 * somewhere, and all of these Actions need to use it.
+	 */
 
     private CommonNavigator getActiveNavigator() {
         CommonNavigator nav = null;
@@ -57,11 +70,14 @@ public class ImportScriptAction implements IActionDelegate {
     }
 
     @SuppressWarnings("restriction")
+	/*
+	 * <p> Process the Import Script action. Use standard eclipse dialogs to
+	 * confirm import.
+	*/
     public void run(IAction action) {
         IWorkbench workbench = PlatformUI.getWorkbench();
         IWorkspaceRoot myWorkspaceRoot = ResourcesPlugin.getWorkspace()
                 .getRoot();
-//        IWorkbenchWindow window = workbench.getActiveWorkbenchWindow();
 
         MQView = getActiveNavigator();
         IProject myProj = null;
@@ -118,9 +134,14 @@ public class ImportScriptAction implements IActionDelegate {
         }
     }
 
-    /* (non-Javadoc)
-     * @see org.eclipse.ui.IActionDelegate#selectionChanged(org.eclipse.jface.action.IAction, org.eclipse.jface.viewers.ISelection)
-     */
+	/*
+	 * <p> Update the myNode instance variable to point to the new selected
+	 * TreeNode object.
+	 * 
+	 * @see
+	 * org.eclipse.ui.IActionDelegate#selectionChanged(org.eclipse.jface.action
+	 * .IAction, org.eclipse.jface.viewers.ISelection)
+	 */
     public void selectionChanged(IAction action, ISelection selection) {
         if (selection != null && selection instanceof IStructuredSelection) {
             IStructuredSelection structuredSelection = (IStructuredSelection) selection;

@@ -34,8 +34,7 @@ import com.ibm.mq.explorer.ms0s.mqscscripts.tree.MQSCScriptsTreeNodeRootFolder;
 import com.ibm.mq.explorer.ui.Common;
 
 /**
- * @author jlowrey
- * 
+ * @author Jeff Lowrey
  */
 public class NewProjectAction implements IActionDelegate {
 
@@ -58,24 +57,17 @@ public class NewProjectAction implements IActionDelegate {
         return nav;
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.eclipse.ui.IActionDelegate#run(org.eclipse.jface.action.IAction)
+	/*
+	 * @see org.eclipse.ui.IActionDelegate#run(org.eclipse.jface.action.IAction)
      */
     @SuppressWarnings("restriction")
     public void run(IAction action) {
-        // Check to see if my default project exists.
         IWorkbench workbench = PlatformUI.getWorkbench();
         IWorkspaceRoot myWorkspaceRoot = ResourcesPlugin.getWorkspace()
                 .getRoot();
 
         workbench.getNewWizardRegistry().findWizard(
                 BasicNewProjectResourceWizard.WIZARD_ID);
-        // IWorkbenchWindow window = workbench.getActiveWorkbenchWindow();
-        // IWorkbenchWizard wizard = new NewScriptFileWizard();
-        // This worked and is a viable option. Might want to extend it to allow
-        // for adding folders.
         IWizardDescriptor npWiz = workbench.getNewWizardRegistry().findWizard(
                 BasicNewProjectResourceWizard.WIZARD_ID);
         BasicNewProjectResourceWizard wizard = null;
@@ -88,25 +80,11 @@ public class NewProjectAction implements IActionDelegate {
             wizard.init(workbench, newSel);
             WizardDialog dialog = new WizardDialog(
                     MQView.getViewSite().getShell()
-                    //PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell() 
                     , wizard);
             dialog.open();
         } catch (CoreException e) {
             e.printStackTrace();
         }
-        // new BasicNewProjectResourceWizard();
-        // construct a selection that points to the IProject that's been
-        // selected.
-        // this worked great the first time. wheeeeeeee!
-        // Object testObj = mySel.getFirstElement();
-        // if ((null != testObj) && (testObj instanceof
-        // MQSCScriptsTreeNodeRootFolder)) {
-        // //Path location = new
-        // Path(((MQSCScriptsTreeNodeProjectFolder)testObj).getPath());
-        // myProj = myWorkspaceRoot.getContainerForLocation(location);
-        // //Project(().toString());
-        // }
-        // FolderTreeContentPage.java:227
         // null pointer exception here. Presumably mySel.
         if (null == mySel) {
             return;
@@ -129,13 +107,6 @@ public class NewProjectAction implements IActionDelegate {
 
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see
-     * org.eclipse.ui.IActionDelegate#selectionChanged(org.eclipse.jface.action
-     * .IAction, org.eclipse.jface.viewers.ISelection)
-     */
     public void selectionChanged(IAction action, ISelection selection) {
         if (selection != null && selection instanceof IStructuredSelection) {
             IStructuredSelection structuredSelection = (IStructuredSelection) selection;

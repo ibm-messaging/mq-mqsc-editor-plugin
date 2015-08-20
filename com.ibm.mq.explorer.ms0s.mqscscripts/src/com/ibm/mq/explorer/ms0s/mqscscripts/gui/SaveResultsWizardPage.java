@@ -6,6 +6,12 @@ import java.io.InputStream;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.ui.dialogs.WizardNewFileCreationPage;
+/**
+ * @author Jeff Lowrey
+ */
+/**
+ * <p>
+ **/
 
 
 public class SaveResultsWizardPage extends WizardNewFileCreationPage {
@@ -26,7 +32,6 @@ public class SaveResultsWizardPage extends WizardNewFileCreationPage {
     }
 
     public IPath getContainerFullPath() {
-        // TODO Auto-generated method stub
         return super.getContainerFullPath();
     }
 

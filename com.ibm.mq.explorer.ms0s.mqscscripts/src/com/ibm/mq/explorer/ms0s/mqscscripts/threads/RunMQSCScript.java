@@ -49,9 +49,11 @@ import com.ibm.mq.pcf.PCFMessage;
 import com.ibm.mq.pcf.PCFParameter;
 
 /**
- * @author jlowrey
- * 
+ * @author Jeff Lowrey
  */
+/**
+ * <p>
+ **/
 public class RunMQSCScript implements IRunnableWithProgress {
     /** The MQSC string */
     private Document mqscDoc;
@@ -408,9 +410,6 @@ public class RunMQSCScript implements IRunnableWithProgress {
         String partType = partition.getType();
         int offset = partition.getOffset();
         int length = partition.getLength();
-        // String objType = "";
-        // String objName = "";
-        // String cmdName = "";
         if (MQSCScriptsPlugin.getDefault().isDebugging()) {
             MQSCScriptsPlugin.getDefault().getLog().log(
                     new Status(IStatus.INFO, MQSCScriptsPlugin.PLUGIN_ID, 0,
@@ -424,7 +423,7 @@ public class RunMQSCScript implements IRunnableWithProgress {
         scanner.setRange((Document) mqscDoc, offset, length);
         IToken myToken = (IToken) scanner.nextToken();
         MQSCCommandEvent myEvent = null;
-        // boolean halt = false;
+
         while ((myToken != null) && (!myToken.isEOF())) {
             if (myToken instanceof MQSCToken) {
                 myEvent = ((MQSCToken) myToken).getEvent();

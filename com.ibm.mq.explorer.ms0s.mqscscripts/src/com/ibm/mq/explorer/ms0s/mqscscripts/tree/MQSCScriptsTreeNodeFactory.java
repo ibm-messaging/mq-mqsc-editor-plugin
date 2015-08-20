@@ -14,7 +14,11 @@ import com.ibm.mq.explorer.ui.extensions.TreeNode;
 import com.ibm.mq.explorer.ui.extensions.TreeNodeId;
 
 /**
+ * @author Jeff Lowrey
  */
+/**
+ * <p>
+ **/
 public class MQSCScriptsTreeNodeFactory implements ITreeNodeFactory {
 
     /*

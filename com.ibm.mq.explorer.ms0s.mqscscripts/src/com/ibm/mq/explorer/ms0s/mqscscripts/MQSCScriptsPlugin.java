@@ -14,40 +14,55 @@ import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.BundleContext;
 
 /**
- * The main plugin class to be used in the desktop.
+ * @author Jeff Lowrey
  */
+/**
+ * <p>
+ * The main plugin class for an Eclipse Plugin.
+ * <p>
+ * This initializes the necessary resources for the function of the MQSC Script
+ * Projects folder element of the MQExplorer navigation tree. It also provides
+ * methods for other classes in this plugin to access those resources.
+ **/
+
 public class MQSCScriptsPlugin extends AbstractUIPlugin {
-	//The shared instance.
+
+	/*
+	 */
+	// The shared instance.
 	private static MQSCScriptsPlugin plugin;
-	//Resource bundle.
+	// Resource bundle.
 	private ResourceBundle resourceBundle;
-    @SuppressWarnings("rawtypes")
-    private static List qmgrList;
-    public static final String PLUGIN_ID = "com.ibm.mq.explorer.ms0s.mqscscripts";
+	@SuppressWarnings("rawtypes")
+	private static List qmgrList;
+	public static final String PLUGIN_ID = "com.ibm.mq.explorer.ms0s.mqscscripts";
 
 	/**
 	 * The constructor.
 	 */
-    @SuppressWarnings("rawtypes")
+	@SuppressWarnings("rawtypes")
 	public MQSCScriptsPlugin() {
 		super();
 		plugin = this;
 		try {
-			resourceBundle = ResourceBundle.getBundle("com.ibm.mq.explorer.ms0s.mqscscripts.MQSCScriptsPluginResources");
-		    if (qmgrList == null ) {
-		        qmgrList = new ArrayList();
-		    }
+			resourceBundle = ResourceBundle
+					.getBundle("com.ibm.mq.explorer.ms0s.mqscscripts.MQSCScriptsPluginResources");
+			if (qmgrList == null) {
+				qmgrList = new ArrayList();
+			}
 		} catch (MissingResourceException x) {
 			resourceBundle = null;
 		}
 	}
-    @SuppressWarnings("rawtypes")
+
+	@SuppressWarnings("rawtypes")
 	public List getQmgrList() {
-	    if (qmgrList == null ) {
-	        qmgrList = new ArrayList();
-	    }
-	    return qmgrList;
+		if (qmgrList == null) {
+			qmgrList = new ArrayList();
+		}
+		return qmgrList;
 	}
+
 	/**
 	 * This method is called upon plug-in activation
 	 */
@@ -70,11 +85,12 @@ public class MQSCScriptsPlugin extends AbstractUIPlugin {
 	}
 
 	/**
-	 * Returns the string from the plugin's resource bundle,
-	 * or 'key' if not found.
+	 * Returns the string from the plugin's resource bundle, or 'key' if not
+	 * found.
 	 */
 	public static String getResourceString(String key) {
-		ResourceBundle bundle = MQSCScriptsPlugin.getDefault().getResourceBundle();
+		ResourceBundle bundle = MQSCScriptsPlugin.getDefault()
+				.getResourceBundle();
 		try {
 			return (bundle != null) ? bundle.getString(key) : key;
 		} catch (MissingResourceException e) {

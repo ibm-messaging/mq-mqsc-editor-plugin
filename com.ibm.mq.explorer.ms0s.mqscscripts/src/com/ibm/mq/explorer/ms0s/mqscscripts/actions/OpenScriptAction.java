@@ -34,19 +34,20 @@ import com.ibm.mq.explorer.ms0s.mqscscripts.MQSCScriptsPlugin;
 import com.ibm.mq.explorer.ms0s.mqscscripts.tree.MQSCScriptsTreeNodeFile;
 import com.ibm.mq.explorer.ui.Common;
 import com.ibm.mq.explorer.ui.extensions.MQExtObject;
-
 /**
- * @author jlowrey
- * 
+ * @author Jeff Lowrey
  */
+/**
+ * <p>
+ **/
 public class OpenScriptAction implements IActionDelegate {
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.eclipse.ui.IActionDelegate#run(org.eclipse.jface.action.IAction)
-     */
-    private MQSCScriptsTreeNodeFile myNode = null;
+	/**
+	 * <p> 
+	 * Should use CommonNavigator!
+	 **/
+//TODO: Should use CommonNavigator!
+	private MQSCScriptsTreeNodeFile myNode = null;
 
     public void run(IAction action) {
         MQExtObject myObj;
@@ -67,12 +68,8 @@ public class OpenScriptAction implements IActionDelegate {
                             (IFile) resource);
                     try {
                         IWorkbench workbench = PlatformUI.getWorkbench();
-                        // org.eclipse.ui.menus.IMenuService menuServ =
-                        // (org.eclipse.ui.menus.IMenuService);
                         IWorkbenchWindow window = workbench
                                 .getActiveWorkbenchWindow();
-                        // window.getActivePage().showView(
-                        // "org.eclipse.ui.views.ContentOutline");
                         IWorkbenchPage myPage = window.getActivePage();
                         IViewReference view = myPage
                                 .findViewReference(Common.VIEWID_MQ_NAVIGATOR_VIEW);
@@ -100,12 +97,6 @@ public class OpenScriptAction implements IActionDelegate {
                                         0,
                                         "Got PartInitException in OpenScriptAction.run()",
                                         e));
-                        // } catch (WorkbenchException e) {
-                        // MQSCScriptsPlugin.getDefault().getLog().log(
-                        // new Status(IStatus.ERROR,
-                        // MQSCScriptsPlugin.PLUGIN_ID, 0,
-                        // "Got Workbench Exception in OpenScriptAction.run()",
-                        // e));
                     }
                 }
             }
@@ -113,13 +104,6 @@ public class OpenScriptAction implements IActionDelegate {
 
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see
-     * org.eclipse.ui.IActionDelegate#selectionChanged(org.eclipse.jface.action
-     * .IAction, org.eclipse.jface.viewers.ISelection)
-     */
     public void selectionChanged(IAction action, ISelection selection) {
         if (selection != null && selection instanceof IStructuredSelection) {
             IStructuredSelection structuredSelection = (IStructuredSelection) selection;
@@ -132,5 +116,4 @@ public class OpenScriptAction implements IActionDelegate {
             }
         }
     }
-
 }

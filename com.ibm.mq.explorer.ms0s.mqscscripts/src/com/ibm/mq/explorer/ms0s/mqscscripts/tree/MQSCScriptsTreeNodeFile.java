@@ -39,7 +39,11 @@ import com.ibm.mq.explorer.ui.extensions.MQExtObject;
 import com.ibm.mq.explorer.ui.extensions.TreeNode;
 
 /**
+ * @author Jeff Lowrey
  */
+/**
+ * <p>
+ **/
 public class MQSCScriptsTreeNodeFile extends TreeNode {
 
     String fileName = null;
@@ -236,17 +240,6 @@ public class MQSCScriptsTreeNodeFile extends TreeNode {
                                     0,
                                     "Got PartInitException in MQSCScriptsTreeNode.openFile()",
                                     e));
-                    // } catch (WorkbenchException e) {
-                    // MQSCScriptsPlugin
-                    // .getDefault()
-                    // .getLog()
-                    // .log(
-                    // new Status(
-                    // IStatus.ERROR,
-                    // MQSCScriptsPlugin.PLUGIN_ID,
-                    // 0,
-                    // "Got Workbench Exception in MQSCScriptsTreeNode.openFile()",
-                    // e));
                 }
             }
         }

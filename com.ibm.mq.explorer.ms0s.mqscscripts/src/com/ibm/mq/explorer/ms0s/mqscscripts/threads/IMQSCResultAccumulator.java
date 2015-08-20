@@ -7,9 +7,11 @@
 package com.ibm.mq.explorer.ms0s.mqscscripts.threads;
 
 /**
- * @author jlowrey
- *  
+ * @author Jeff Lowrey
  */
+/**
+ * <p>
+ **/
 public interface IMQSCResultAccumulator {
     public void newResultSet(String resultSetName);
     public void addResult(Object result);

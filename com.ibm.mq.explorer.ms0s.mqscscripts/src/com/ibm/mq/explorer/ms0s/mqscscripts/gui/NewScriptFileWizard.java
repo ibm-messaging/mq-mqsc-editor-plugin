@@ -38,7 +38,11 @@ import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.ide.IDE;
 
 /**
+ * @author Jeff Lowrey
  */
+/**
+ * <p>
+ **/
 
 public class NewScriptFileWizard extends Wizard implements INewWizard {
     private NewScriptFileWizardPage page;

@@ -15,14 +15,17 @@ import com.ibm.mq.explorer.ui.extensions.IContentPageFactory;
 
 /**
  * @author Jeff Lowrey
- *
  */
+/**
+ * <p>
+ **/
 public class FolderContentPageFactory implements IContentPageFactory { 
 
 	FolderTreeContentPage myPage = null;
 	
-	/* (non-Javadoc)
-	 * @see com.ibm.mq.explorer.ui.extensions.IContentPageFactory#getPageId()
+	/*
+     * <p>
+     * standard getPageId method that returns the class name. 
 	 */
 	public String getPageId() {
 		return "com.ibm.mq.explorer.ms0s.mqscscripts.folderTreeContentPage";

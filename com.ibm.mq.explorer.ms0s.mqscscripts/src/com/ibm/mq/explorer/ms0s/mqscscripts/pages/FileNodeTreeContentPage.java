@@ -26,8 +26,10 @@ import com.ibm.mq.explorer.ui.extensions.MQExtObject;
 
 /**
  * @author Jeff Lowrey
- * 
  */
+/**
+ * <p>
+ **/
 public class FileNodeTreeContentPage extends ContentPage {
 
     private MQExtObject myObj = null;
@@ -37,21 +39,17 @@ public class FileNodeTreeContentPage extends ContentPage {
     Label modTime = null;
 
     Label fileSize = null;
-//    ISourceViewer mySV;
-//    MQSCEditor myEditor;
     TabItem editorItem, infoItem;
     TabFolder myTabFolder;
-    // Label fullName = null;
+
     /**
+     * <p>
+     * Constructs the page, including the table view. 
      * @param arg0
      * @param arg1
      */
     public FileNodeTreeContentPage(Composite arg0, int arg1) {
         super(arg0, arg1);
-//        myTabFolder = new TabFolder(this, arg1);
-        // FillLayout fillLayout = new FillLayout();
-//        infoItem = new TabItem(myTabFolder, SWT.NONE);
-//        Composite tfc =new Composite(myTabFolder, SWT.NONE);
         RowLayout rowLayout = new RowLayout();
         rowLayout.wrap = false;
         rowLayout.pack = false;
@@ -64,7 +62,6 @@ public class FileNodeTreeContentPage extends ContentPage {
         rowLayout.marginBottom = 5;
         rowLayout.spacing = 5;
         this.setLayout(rowLayout);
-        //tfc.setLayout(rowLayout);
         ContentTitleBar title = new ContentTitleBar(this, SWT.NONE);
         title.setText("MQSC File");
         Label blank = new Label(this, SWT.NONE);
@@ -73,25 +70,21 @@ public class FileNodeTreeContentPage extends ContentPage {
         fullName = new Label(this, SWT.NONE);
         modTime = new Label(this, SWT.NONE);
         fileSize = new Label(this, SWT.NONE);
-        //tfc.pack();
-        //myTabFolder.pack();
-//        editorItem = new TabItem(myTabFolder, SWT.NONE);
-        // myEditor = new MQSCEditor();
-        // mySV =myEditor.createSourceViewer(this, null, 0);
     }
 
     /*
-     * (non-Javadoc)
-     * 
+     * <p>
+     * Default, empty init method.  
+     *  
      * @see com.ibm.mq.explorer.ui.extensions.ContentPage#init()
      */
     public void init() {
 
     }
 
-    /*
-     * (non-Javadoc)
-     * 
+    /* 
+     * <p>
+     * standard getId method that returns the class name. 
      * @see com.ibm.mq.explorer.ui.extensions.ContentPage#getId()
      */
     public String getId() {
@@ -108,7 +101,8 @@ public class FileNodeTreeContentPage extends ContentPage {
     }
 
     /*
-     * (non-Javadoc)
+     * <p>
+     * This method updates the content of the existing page.  
      * 
      * @see com.ibm.mq.explorer.ui.extensions.ContentPage#updatePage()
      */
@@ -147,19 +141,6 @@ public class FileNodeTreeContentPage extends ContentPage {
                     fileSize.setText("File Size: " + (size) + " bytes");
                 }
                 fileSize.pack();
-//                IEditorInput myInput = new FileInPlaceEditorInput(
-//                        (IFile) myRes);
-//                try {
-//                    myTabFolder.get
-//                    IWorkbenchPage myPage = window.getActivePage();
-//                    myPage.openEditor(myInput, "com.ibm.mq.explorer.ms0s.mqsceditor.MQSCEditor");
-//                } catch (PartInitException e) {
-//                    MQSCScriptsPlugin.getDefault().getLog().log(
-//                            new Status(IStatus.ERROR,
-//                                    MQSCScriptsPlugin.PLUGIN_ID, 0,
-//                                    "Got PartInitException in FileNodeTreeContentPage.updatePage()",
-//                                    e));
-//                }
             }
         }
     }

@@ -40,11 +40,12 @@ import org.eclipse.ui.navigator.CommonNavigator;
 
 import com.ibm.mq.explorer.ms0s.mqscscripts.actions.RunScriptAction;
 import com.ibm.mq.explorer.ui.Common;
-
 /**
- * @author jlowrey
- * 
+ * @author Jeff Lowrey
  */
+/**
+ * <p>
+ **/
 public class RunScriptResultDialog extends Dialog {
     @SuppressWarnings("rawtypes")
     private HashMap fInput;

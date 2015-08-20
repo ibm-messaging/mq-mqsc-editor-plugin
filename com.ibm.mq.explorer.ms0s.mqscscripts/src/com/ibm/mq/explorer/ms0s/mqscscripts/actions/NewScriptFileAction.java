@@ -41,8 +41,7 @@ import com.ibm.mq.explorer.ms0s.mqscscripts.tree.MQSCScriptsTreeNodeRootFolder;
 import com.ibm.mq.explorer.ui.Common;
 
 /**
- * @author jlowrey
- * 
+ * @author Jeff Lowrey
  */
 public class NewScriptFileAction implements IActionDelegate {
 
@@ -65,11 +64,7 @@ public class NewScriptFileAction implements IActionDelegate {
         }
         return nav;
     }
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.eclipse.ui.IActionDelegate#run(org.eclipse.jface.action.IAction)
-     */
+
     @SuppressWarnings("restriction")
     public void run(IAction action) {
         // Check to see if my default project exists.
@@ -108,16 +103,8 @@ public class NewScriptFileAction implements IActionDelegate {
             e.printStackTrace();
         }
          IWorkbenchWizard wizard = new NewScriptFileWizard();
-        // This worked and is a viable option. Might want to extend it to allow
-        // for adding folders.
-        //BasicNewFileResourceWizard wizard = new BasicNewFileResourceWizard();
-
-        // construct a selection that points to the IProject that's been
-        // selected.
-        // this worked great the first time. wheeeeeeee! And then later it fails
-        // miserable for no apparent reason. wheeee!!!!:-(
-        Object testObj = mySel.getFirstElement();
-        if (null != testObj) {
+         Object testObj = mySel.getFirstElement();
+         if (null != testObj) {
             if (testObj instanceof MQSCScriptsTreeNodeProjectFolder) {
                 Path location = new Path(
                         ((MQSCScriptsTreeNodeProjectFolder) testObj).getPath());
@@ -133,7 +120,6 @@ public class NewScriptFileAction implements IActionDelegate {
         // wizard.
         WizardDialog dialog = new WizardDialog(MQView.getViewSite().getShell(), wizard);
         dialog.open();
-        // FolderTreeContentPage.java:227
         // null pointer exception here. Presumably mySel.
         if (null == mySel) {
             return;
@@ -151,22 +137,9 @@ public class NewScriptFileAction implements IActionDelegate {
             }
 
         }
-        /*
-         * } catch (WorkbenchException e) {
-         * MQSCScriptsPlugin.getDefault().getLog().log( new
-         * Status(IStatus.ERROR, MQSCScriptsPlugin.PLUGIN_ID, 0,
-         * "Got Workbench Exception in NewScriptFileAction.run()", e)); }
-         */
 
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see
-     * org.eclipse.ui.IActionDelegate#selectionChanged(org.eclipse.jface.action
-     * .IAction, org.eclipse.jface.viewers.ISelection)
-     */
     public void selectionChanged(IAction action, ISelection selection) {
         if (selection != null && selection instanceof IStructuredSelection) {
             IStructuredSelection structuredSelection = (IStructuredSelection) selection;

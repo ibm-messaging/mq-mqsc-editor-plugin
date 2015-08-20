@@ -62,9 +62,6 @@ public class MQSCActionContributor extends TextEditorActionContributor {
      * @see IEditorActionBarContributor#init(IActionBars)
      */
     public void init(IActionBars bars) {
-        int notanumber;
-        notanumber = 0;
-        notanumber ++;
         IMenuManager menuManager = bars.getMenuManager();
         if (menuManager != null) {
             menuManager

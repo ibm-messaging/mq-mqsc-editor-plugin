@@ -20,7 +20,11 @@ import com.ibm.mq.explorer.ui.extensions.MQExtObject;
 import com.ibm.mq.explorer.ui.extensions.TreeNode;
 
 /**
+ * @author Jeff Lowrey
  */
+/**
+ * <p>
+ **/
 public class MQSCScriptsTreeNodeProjectFolder extends TreeNode {
 
     String folderName = null;

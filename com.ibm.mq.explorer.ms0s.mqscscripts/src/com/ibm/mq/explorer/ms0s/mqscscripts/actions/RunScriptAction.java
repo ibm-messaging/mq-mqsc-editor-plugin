@@ -57,11 +57,12 @@ import com.ibm.mq.explorer.ui.extensions.ExplorerExtension;
 import com.ibm.mq.explorer.ui.extensions.MQExtObject;
 import com.ibm.mq.explorer.ui.extensions.MQQmgrExtObject;
 import com.ibm.mq.explorer.ui.internal.queuemanager.UiQueueManager;
-
 /**
- * @author jlowrey
- * 
+ * @author Jeff Lowrey
  */
+/**
+ * <p>
+ **/
 public class RunScriptAction implements IActionDelegate, IMQSCResultAccumulator {
 
     private MQSCScriptsTreeNodeFile myNode = null;
@@ -293,10 +294,6 @@ public class RunScriptAction implements IActionDelegate, IMQSCResultAccumulator 
         for (Iterator iter = qmgrList.iterator(); iter.hasNext();) {
             MQQmgrExtObject element = (MQQmgrExtObject) iter.next();
             if (element.isConnected()) {
-                // && element.getPlatform() != 1) {
-                // hackery because I don't feel like finding where MQPL_ZOS is
-                // defined in Java.
-                // Also. Annoying. zOS doesn't support Escape messages.
                 activeQmgrs.add(element);
                 if (MQSCScriptsPlugin.getDefault().isDebugging()) {
 

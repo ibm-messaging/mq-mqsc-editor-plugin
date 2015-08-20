@@ -33,100 +33,92 @@ import com.ibm.mq.explorer.ms0s.mqscscripts.tree.MQSCScriptsTreeNodeRootFolder;
 import com.ibm.mq.explorer.ui.Common;
 
 /**
- * @author jlowrey
- * 
+ * @author Jeff Lowrey
  */
+/**
+ * <p>
+ **/
 public class NewFolderAction implements IActionDelegate {
 
-    IStructuredSelection mySel;
-    private static CommonNavigator MQView;
+	IStructuredSelection mySel;
+	private static CommonNavigator MQView;
 
-    private CommonNavigator getActiveNavigator() {
-        CommonNavigator nav = null;
-        IViewReference view = PlatformUI.getWorkbench()
-                .getActiveWorkbenchWindow().getActivePage()
-                .findViewReference(Common.VIEWID_MQ_NAVIGATOR_VIEW);
-        if (view != null) {
-            IViewPart part = view.getView(false);
-            if ((part != null) && (part instanceof CommonNavigator)) {
-                IMenuManager menus = part.getViewSite().getActionBars().getMenuManager();
-                menus.add(new GroupMarker(IWorkbenchActionConstants.FIND_EXT));
-                nav = (CommonNavigator) part;
-            }
-        }
-        return nav;
-    }
+	private CommonNavigator getActiveNavigator() {
+		CommonNavigator nav = null;
+		IViewReference view = PlatformUI.getWorkbench()
+				.getActiveWorkbenchWindow().getActivePage()
+				.findViewReference(Common.VIEWID_MQ_NAVIGATOR_VIEW);
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.eclipse.ui.IActionDelegate#run(org.eclipse.jface.action.IAction)
-     */
-    @SuppressWarnings("restriction")
-    public void run(IAction action) {
-        // Check to see if my default project exists.
-        IWorkbench workbench = PlatformUI.getWorkbench();
-        IWorkspaceRoot myWorkspaceRoot = ResourcesPlugin.getWorkspace()
-                .getRoot();
-//        IWorkbenchWindow window = workbench.getActiveWorkbenchWindow();
-//        IContainer myProj = null;
-        MQView = getActiveNavigator();
+		if (view != null) {
+			IViewPart part = view.getView(false);
+			if ((part != null) && (part instanceof CommonNavigator)) {
+				IMenuManager menus = part.getViewSite().getActionBars()
+						.getMenuManager();
+				menus.add(new GroupMarker(IWorkbenchActionConstants.FIND_EXT));
+				nav = (CommonNavigator) part;
+			}
+		}
+		return nav;
+	}
 
-        
-        BasicNewFolderResourceWizard wizard = new BasicNewFolderResourceWizard();
-//        Object testObj = mySel.getFirstElement();
-//        if ((null != testObj) && (testObj instanceof MQSCScriptsTreeNodeProjectFolder)) {
-//            Path location = new Path(((MQSCScriptsTreeNodeProjectFolder)testObj).getPath());
-//            myProj = myWorkspaceRoot.getContainerForLocation(location);
-//            //Project(().toString());
-//        }
-        StructuredSelection newSel = new StructuredSelection(myWorkspaceRoot);//(Object) myProj);
-        wizard.init(workbench, newSel);
-        WizardDialog dialog = new WizardDialog(MQView.getViewSite().getShell(), wizard);
-        dialog.open();
-        // FolderTreeContentPage.java:227
-        // null pointer exception here. Presumably mySel.
-        if (null == mySel) {
-            return;
-        }
-        Object obj = mySel.getFirstElement();
-        WizardNewFolderMainPage thisPage = (WizardNewFolderMainPage)wizard.getPages()[0];
-        IFolder newFolder = thisPage.createNewFolder();
-        MQSCScriptsFileNodeFactory.addFolderNode(newFolder);
-        if (obj != null) {
-            if (obj instanceof MQSCScriptsTreeNodeRootFolder) {
-                MQSCScriptsTreeNodeRootFolder myNode = (MQSCScriptsTreeNodeRootFolder) obj;
-                myNode.refresh();
-            }
-            //this says I need to write an interface. 
-            if (obj instanceof MQSCScriptsTreeNodeProjectFolder) {
-                MQSCScriptsTreeNodeProjectFolder myNode = (MQSCScriptsTreeNodeProjectFolder) obj;
-                myNode.refresh();
-            }
-        
-        }
+	@SuppressWarnings("restriction")
+	/*
+	 * @see org.eclipse.ui.IActionDelegate#run(org.eclipse.jface.action.IAction)
+	 */
+	public void run(IAction action) {
+		IWorkbench workbench = PlatformUI.getWorkbench();
+		IWorkspaceRoot myWorkspaceRoot = ResourcesPlugin.getWorkspace()
+				.getRoot();
+		MQView = getActiveNavigator();
 
-    }
+		BasicNewFolderResourceWizard wizard = new BasicNewFolderResourceWizard();
+		StructuredSelection newSel = new StructuredSelection(myWorkspaceRoot);// (Object)
+																				// myProj);
+		wizard.init(workbench, newSel);
+		WizardDialog dialog = new WizardDialog(MQView.getViewSite().getShell(),
+				wizard);
+		dialog.open();
+		if (null == mySel) {
+			return;
+		}
+		Object obj = mySel.getFirstElement();
+		WizardNewFolderMainPage thisPage = (WizardNewFolderMainPage) wizard
+				.getPages()[0];
+		IFolder newFolder = thisPage.createNewFolder();
+		MQSCScriptsFileNodeFactory.addFolderNode(newFolder);
+		if (obj != null) {
+			if (obj instanceof MQSCScriptsTreeNodeRootFolder) {
+				MQSCScriptsTreeNodeRootFolder myNode = (MQSCScriptsTreeNodeRootFolder) obj;
+				myNode.refresh();
+			}
+			// this says I need to write an interface.
+			if (obj instanceof MQSCScriptsTreeNodeProjectFolder) {
+				MQSCScriptsTreeNodeProjectFolder myNode = (MQSCScriptsTreeNodeProjectFolder) obj;
+				myNode.refresh();
+			}
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see
-     * org.eclipse.ui.IActionDelegate#selectionChanged(org.eclipse.jface.action
-     * .IAction, org.eclipse.jface.viewers.ISelection)
-     */
-    public void selectionChanged(IAction action, ISelection selection) {
-        if (selection != null && selection instanceof IStructuredSelection) {
-            IStructuredSelection structuredSelection = (IStructuredSelection) selection;
-            // Get the selected object
-            Object obj = structuredSelection.getFirstElement();
-            if (obj != null) {
-                if (obj instanceof MQSCScriptsTreeNodeRootFolder
-                        || obj instanceof MQSCScriptsTreeNodeProjectFolder) {
-                    mySel = structuredSelection;
-                }
-            }
-        }
-    }
+		}
+
+	}
+
+	/*
+	 * 
+	 * @see
+	 * org.eclipse.ui.IActionDelegate#selectionChanged(org.eclipse.jface.action
+	 * .IAction, org.eclipse.jface.viewers.ISelection)
+	 */
+	public void selectionChanged(IAction action, ISelection selection) {
+		if (selection != null && selection instanceof IStructuredSelection) {
+			IStructuredSelection structuredSelection = (IStructuredSelection) selection;
+			// Get the selected object
+			Object obj = structuredSelection.getFirstElement();
+			if (obj != null) {
+				if (obj instanceof MQSCScriptsTreeNodeRootFolder
+						|| obj instanceof MQSCScriptsTreeNodeProjectFolder) {
+					mySel = structuredSelection;
+				}
+			}
+		}
+	}
 
 }

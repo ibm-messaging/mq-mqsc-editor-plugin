@@ -23,62 +23,84 @@ import com.ibm.mq.explorer.ui.extensions.MQExtObject;
 import com.ibm.mq.explorer.ui.extensions.TreeNode;
 
 /**
- * @author jlowrey
- *
+ * @author Jeff Lowrey
  */
+/**
+ * <p>
+ * Some investigation could be done to see if the same action could be used for
+ * deleting folders, files and projects. I think there was a reason for
+ * separating them - but it may have simply been reflexive coding.
+ * <p>
+ * The type of the resource could be used to change which warning message is
+ * shown.
+ **/
 public class DeleteFolderAction implements IActionDelegate {
-    private MQSCScriptsTreeNodeProjectFolder myNode = null;    
+	private MQSCScriptsTreeNodeProjectFolder myNode = null;
 
-    /* (non-Javadoc)
-     * @see org.eclipse.ui.IActionDelegate#run(org.eclipse.jface.action.IAction)
-     */
-    @SuppressWarnings("restriction")
-    public void run(IAction action) {
-        MQExtObject myObj;
+	@SuppressWarnings("restriction")
+	public void run(IAction action) {
+		MQExtObject myObj;
 
-        if (myNode != null) {
-            myObj = (MQExtObject) myNode.getObject();
-            if (myObj != null) {
-                Object myIntObj = myObj.getInternalObject();
-                if (myIntObj instanceof IResource) {
-                    IResource resource = (IResource) myIntObj;
-                    if (!resource.exists()) {return;}; //Can't delete a script that doesn't exist.
-                    boolean confirm;
-                    confirm = MessageDialog.openConfirm(null,"Delete Folder","This will delete the entire folder named '"+resource.getName()+"' including everything it contains.");
-                    try {
-                        if (confirm) {
-                            resource.delete(false,null);
-                            TreeNode myParent = myNode.getParent();
-                            myParent.removeChildFromNode(myNode);
-                            myParent.refresh();
-                        }
-                    } catch (CoreException e) {
-                        MQSCScriptsPlugin.getDefault().getLog().log(
-                                new Status(IStatus.ERROR,
-                                        MQSCScriptsPlugin.PLUGIN_ID, 0,
-                                        "Got Core Exception in DeleteScriptAction.run()",
-                                        e));
-                    }
-                }
-            }
-        }
-    }
+		if (myNode != null) {
+			myObj = (MQExtObject) myNode.getObject();
+			if (myObj != null) {
+				// getInternalObject returns the workspace resource object
+				// stored with the tree node.
+				Object myIntObj = myObj.getInternalObject();
+				if (myIntObj instanceof IResource) {
+					IResource resource = (IResource) myIntObj;
+					if (!resource.exists()) {
+						// Can't delete a script that doesn't exist.
+						// Maybe should produce a warning.
+						return;
+					}
+					boolean confirm;
+					// Give the user a chance to avoid a 'Whoops!'
+					confirm = MessageDialog.openConfirm(null, "Delete Folder",
+							"This will delete the entire folder named '"
+									+ resource.getName()
+									+ "' including everything it contains.");
+					try {
+						if (confirm) {
+							// throw it away. Update the navigator tree.
+							resource.delete(false, null);
+							TreeNode myParent = myNode.getParent();
+							myParent.removeChildFromNode(myNode);
+							myParent.refresh();
+						}
+					} catch (CoreException e) {
+						MQSCScriptsPlugin
+								.getDefault()
+								.getLog()
+								.log(new Status(
+										IStatus.ERROR,
+										MQSCScriptsPlugin.PLUGIN_ID,
+										0,
+										"Got Core Exception in DeleteScriptAction.run()",
+										e));
+					}
+				}
+			}
+		}
+	}
 
-    /* (non-Javadoc)
-     * @see org.eclipse.ui.IActionDelegate#selectionChanged(org.eclipse.jface.action.IAction, org.eclipse.jface.viewers.ISelection)
-     */
-    public void selectionChanged(IAction action, ISelection selection) {
-        if (selection != null && selection instanceof IStructuredSelection) {
-            IStructuredSelection structuredSelection = (IStructuredSelection) selection;
-            //             Get the selected object
-            Object obj = structuredSelection.getFirstElement();
-            if (obj != null) {
-                if (obj instanceof MQSCScriptsTreeNodeProjectFolder) {
-                    myNode = (MQSCScriptsTreeNodeProjectFolder) obj;
-                }
-            }
-        }
+	/*
+	 * @see
+	 * org.eclipse.ui.IActionDelegate#selectionChanged(org.eclipse.jface.action
+	 * .IAction, org.eclipse.jface.viewers.ISelection)
+	 */
+	public void selectionChanged(IAction action, ISelection selection) {
+		if (selection != null && selection instanceof IStructuredSelection) {
+			IStructuredSelection structuredSelection = (IStructuredSelection) selection;
+			// Get the selected object
+			Object obj = structuredSelection.getFirstElement();
+			if (obj != null) {
+				if (obj instanceof MQSCScriptsTreeNodeProjectFolder) {
+					myNode = (MQSCScriptsTreeNodeProjectFolder) obj;
+				}
+			}
+		}
 
-    }
+	}
 
 }

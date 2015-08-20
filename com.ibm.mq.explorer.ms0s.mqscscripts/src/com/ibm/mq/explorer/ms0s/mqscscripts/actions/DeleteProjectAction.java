@@ -41,160 +41,145 @@ import com.ibm.mq.explorer.ui.Common;
 import com.ibm.mq.explorer.ui.extensions.TreeNode;
 
 /**
- * @author jlowrey
- * 
+ * @author Jeff Lowrey
  */
+/**
+ * <p>
+ * Some investigation could be done to see if the same action could be used for
+ * deleting folders, files and projects. I think there was a reason for
+ * separating them - but it may have simply been reflexive coding.
+ * <p>
+ * The type of the resource could be used to change which warning message is
+ * shown.
+ **/
 public class DeleteProjectAction implements IActionDelegate {
-    private MQSCScriptsTreeNodeProjectFolder myNode = null;
-    private static CommonNavigator MQView;
+	private MQSCScriptsTreeNodeProjectFolder myNode = null;
+	private static CommonNavigator MQView;
 
-    private CommonNavigator getActiveNavigator() {
-        CommonNavigator nav = null;
-        IViewReference view = PlatformUI.getWorkbench()
-                .getActiveWorkbenchWindow().getActivePage()
-                .findViewReference(Common.VIEWID_MQ_NAVIGATOR_VIEW);
-        if (view != null) {
-            IViewPart part = view.getView(false);
-            if ((part != null) && (part instanceof CommonNavigator)) {
-                nav = (CommonNavigator) part;
-            }
-        }
-        return nav;
-    }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.eclipse.ui.IActionDelegate#run(org.eclipse.jface.action.IAction)
-     */
-    @SuppressWarnings("restriction")
-    public void run(IAction action) {
-//       MQExtObject myObj;
+	private CommonNavigator getActiveNavigator() {
+		CommonNavigator nav = null;
+		IViewReference view = PlatformUI.getWorkbench()
+				.getActiveWorkbenchWindow().getActivePage()
+				.findViewReference(Common.VIEWID_MQ_NAVIGATOR_VIEW);
+		/*
+		 * <p> Get the MQExplorer Navigator View, for updating/manipulating parts of
+		 * it. This probably needs to be abstracted to a common source file
+		 * somewhere, and all of these Actions need to use it.
+		 */
+		if (view != null) {
+			IViewPart part = view.getView(false);
+			if ((part != null) && (part instanceof CommonNavigator)) {
+				nav = (CommonNavigator) part;
+			}
+		}
+		return nav;
+	}
 
-        MQView = getActiveNavigator();
-        IWorkspaceRoot root = ResourcesPlugin.getWorkspace().getRoot();
-        // IProject myProj = null;
-        // myProj = myWorkspaceRoot.getProject("MQSC Scripts");
-        ListDialog dialog = new ListDialog(MQView.getViewSite().getShell());
-        dialog.setContentProvider(new ArrayContentProvider());
-        dialog.setInput(Arrays.asList((Object[]) root.getProjects()));
-        dialog.setLabelProvider(new DecoratingLabelProvider(
-                new LabelProvider(), new ProjectLabelDecorator()));
-        dialog.setTitle("Select a project");
-        // ContainerSelectionDialog dialog =
-        // new ContainerSelectionDialog(
-        // PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell(),
-        // ResourcesPlugin.getWorkspace().getRoot(),
-        // true,
-        // "Select a project");
+	@SuppressWarnings("restriction")
+	public void run(IAction action) {
+		// Get the right View object so we can open a dialog properly.
+		MQView = getActiveNavigator();
+		IWorkspaceRoot root = ResourcesPlugin.getWorkspace().getRoot();
 
-        if (dialog.open() == ListSelectionDialog.OK) {
-            Object[] result = dialog.getResult();
-            if (result.length == 1) {
-                // containerText.setText(((IProject)
-                // result[0]).getFullPath().toOSString());
-                IResource resource = (IResource) result[0];
-                if (!resource.exists()) {
-                    return;
-                }
-                ; // Can't delete a script that doesn't exist.
-                boolean confirm;
-                confirm = MessageDialog.openConfirm(null,
-                        "Delete MQSC Project",
-                        "This will delete the entire project named '"
-                                + resource.getName()
-                                + "' including everything it contains.");
-                try {
-                    if (confirm) {
-                        resource.delete(false, null);
-                        TreeNode myParent = myNode.getParent();
-                        myParent.removeChildFromNode(myNode);
-                        myParent.refresh();
-                    }
-                } catch (CoreException e) {
-                    MQSCScriptsPlugin
-                            .getDefault()
-                            .getLog()
-                            .log(new Status(
-                                    IStatus.ERROR,
-                                    MQSCScriptsPlugin.PLUGIN_ID,
-                                    0,
-                                    "Got Core Exception in DeleteScriptAction.run()",
-                                    e));
-                }
-            }
-        }
+		// Ask the user to select the project to delete.
+		ListDialog dialog = new ListDialog(MQView.getViewSite().getShell());
+		dialog.setContentProvider(new ArrayContentProvider());
+		dialog.setInput(Arrays.asList((Object[]) root.getProjects()));
+		dialog.setLabelProvider(new DecoratingLabelProvider(
+				new LabelProvider(), new ProjectLabelDecorator()));
+		dialog.setTitle("Select a project");
 
-        /*
-         * if (myNode != null) { myObj = (MQExtObject) myNode.getObject(); if
-         * (myObj != null) { Object myIntObj = myObj.getInternalObject(); if
-         * (myIntObj instanceof IResource) { IResource resource = (IResource)
-         * myIntObj; if (!resource.exists()) { return; } ; // Can't delete a
-         * script that doesn't exist. boolean confirm; confirm =
-         * MessageDialog.openConfirm(null, "Delete MQSC Project",
-         * "This will delete the entire project named '" + resource.getName() +
-         * "' including everything it contains."); try { if (confirm) {
-         * resource.delete(false, null); TreeNode myParent = myNode.getParent();
-         * myParent.removeChildFromNode(myNode); myParent.refresh(); } } catch
-         * (CoreException e) { MQSCScriptsPlugin .getDefault() .getLog()
-         * .log(new Status( IStatus.ERROR, MQSCScriptsPlugin.PLUGIN_ID, 0,
-         * "Got Core Exception in DeleteScriptAction.run()", e)); } } } }
-         */
-    }
+		if (dialog.open() == ListSelectionDialog.OK) {
+			Object[] result = dialog.getResult();
+			if (result.length == 1) {
+				IResource resource = (IResource) result[0];
+				if (!resource.exists()) {
+					return;
+					// Can't delete a project that doesn't exist.
+					// Maybe should produce a warning.
+				}
+				boolean confirm;
+				// Give the user a chance to avoid a 'Whoops!'
+				confirm = MessageDialog.openConfirm(null,
+						"Delete MQSC Project",
+						"This will delete the entire project named '"
+								+ resource.getName()
+								+ "' including everything it contains.");
+				try {
+					if (confirm) {
+						resource.delete(false, null);
+						TreeNode myParent = myNode.getParent();
+						myParent.removeChildFromNode(myNode);
+						myParent.refresh();
+					}
+				} catch (CoreException e) {
+					MQSCScriptsPlugin
+							.getDefault()
+							.getLog()
+							.log(new Status(
+									IStatus.ERROR,
+									MQSCScriptsPlugin.PLUGIN_ID,
+									0,
+									"Got Core Exception in DeleteScriptAction.run()",
+									e));
+				}
+			}
+		}
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see
-     * org.eclipse.ui.IActionDelegate#selectionChanged(org.eclipse.jface.action
-     * .IAction, org.eclipse.jface.viewers.ISelection)
-     */
-    public void selectionChanged(IAction action, ISelection selection) {
-        if (selection != null && selection instanceof IStructuredSelection) {
-            IStructuredSelection structuredSelection = (IStructuredSelection) selection;
-            // Get the selected object
-            Object obj = structuredSelection.getFirstElement();
-            if (obj != null) {
-                if (obj instanceof MQSCScriptsTreeNodeProjectFolder) {
-                    myNode = (MQSCScriptsTreeNodeProjectFolder) obj;
-                }
-            }
-        }
+	}
 
-    }
+	/*
+	 * @see
+	 * org.eclipse.ui.IActionDelegate#selectionChanged(org.eclipse.jface.action
+	 * .IAction, org.eclipse.jface.viewers.ISelection)
+	 */
+	public void selectionChanged(IAction action, ISelection selection) {
+		if (selection != null && selection instanceof IStructuredSelection) {
+			IStructuredSelection structuredSelection = (IStructuredSelection) selection;
+			// Get the selected object
+			Object obj = structuredSelection.getFirstElement();
+			if (obj != null) {
+				if (obj instanceof MQSCScriptsTreeNodeProjectFolder) {
+					myNode = (MQSCScriptsTreeNodeProjectFolder) obj;
+				}
+			}
+		}
 
-    class ProjectLabelDecorator implements ILabelDecorator {
-        public Image decorateImage(Image image, Object element) {
-            ISharedImages myImages = PlatformUI.getWorkbench()
-                    .getSharedImages();
-            return myImages.getImage(IDE.SharedImages.IMG_OBJ_PROJECT);
-        }
+	}
 
-        @Override
-        public String decorateText(String text, Object element) {
-            if (text.startsWith("P")) {
-                return text.substring(2);
-            }
-            return text;
-        }
+	class ProjectLabelDecorator implements ILabelDecorator {
+		public Image decorateImage(Image image, Object element) {
+			ISharedImages myImages = PlatformUI.getWorkbench()
+					.getSharedImages();
+			return myImages.getImage(IDE.SharedImages.IMG_OBJ_PROJECT);
+		}
 
-        @Override
-        public void addListener(ILabelProviderListener listener) {
+		@Override
+		public String decorateText(String text, Object element) {
+			if (text.startsWith("P")) {
+				return text.substring(2);
+			}
+			return text;
+		}
 
-        }
+		@Override
+		public void addListener(ILabelProviderListener listener) {
 
-        @Override
-        public void dispose() {
-        }
+		}
 
-        @Override
-        public boolean isLabelProperty(Object element, String property) {
-            return false;
-        }
+		@Override
+		public void dispose() {
+		}
 
-        @Override
-        public void removeListener(ILabelProviderListener listener) {
-        }
-    }
+		@Override
+		public boolean isLabelProperty(Object element, String property) {
+			return false;
+		}
+
+		@Override
+		public void removeListener(ILabelProviderListener listener) {
+		}
+	}
 
 }

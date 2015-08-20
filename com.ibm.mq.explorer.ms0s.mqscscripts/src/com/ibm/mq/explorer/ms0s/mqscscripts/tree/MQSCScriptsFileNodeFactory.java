@@ -44,14 +44,12 @@ import com.ibm.mq.explorer.ui.extensions.ITreeNodeFactory;
 import com.ibm.mq.explorer.ui.extensions.MQExtObject;
 import com.ibm.mq.explorer.ui.extensions.TreeNode;
 
-/*
- * Created on Mar 26, 2007
- * 
- */
-
 /**
- * @author jlowrey
+ * @author Jeff Lowrey
  */
+/**
+ * <p>
+ **/
 public class MQSCScriptsFileNodeFactory implements ITreeNodeFactory,
         IResourceChangeListener, IResourceDeltaVisitor {
     private static TreeNode foundRoot = null;
@@ -336,28 +334,7 @@ public class MQSCScriptsFileNodeFactory implements ITreeNodeFactory,
             }
             return;
         }
-        /*
-         * what a bad idea! iterate over deleteList instead if (hideProjects) {
-         * TreeNode[] oldKids = foundNode.getChildren(); for (int i = 0; i <
-         * oldKids.length; i++) { // Check for deleted but not removed resources
-         * if (deleteList.contains(oldKids[i].getId())) {
-         * foundNode.removeChildFromNode(oldKids[i]); } else { myObj =
-         * (MQExtObject) oldKids[i].getObject(); if (myObj != null) { Object
-         * myIntObj = myObj.getInternalObject(); if (myIntObj instanceof
-         * IResource) { if (!((IResource) myIntObj).exists()) {
-         * foundNode.removeChildFromNode(oldKids[i]); } } } } } } else {
-         * TreeNode[] folders = foundNode.getChildren(); for (int i = 0; i <
-         * folders.length; i++) { // Check for deleted but not removed resources
-         * TreeNode[] oldKids = folders[i].getChildren(); for (int j = 0; j <
-         * folders.length; j++) { if (deleteList.contains(oldKids[j].getId())) {
-         * folders[i].removeChildFromNode(oldKids[j]); } else { myObj =
-         * (MQExtObject) oldKids[j].getObject(); if (myObj != null) { Object
-         * myIntObj = myObj.getInternalObject(); if (myIntObj instanceof
-         * IResource) { if (!((IResource) myIntObj).exists()) {
-         * folders[i].removeChildFromNode(oldKids[j]); } } } } } if
-         * (!(folders[i].hasChildren())) {
-         * foundNode.removeChildFromNode(folders[i]); } } }
-         */
+
         for (Iterator iter = deleteList.iterator(); iter.hasNext();) {
             TreeNode deleteMe = (TreeNode) iter.next();
             TreeNode deletedParent = deleteMe.getParent();

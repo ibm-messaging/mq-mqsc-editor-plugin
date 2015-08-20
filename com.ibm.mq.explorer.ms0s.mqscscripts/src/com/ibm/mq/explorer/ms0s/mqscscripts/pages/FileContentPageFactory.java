@@ -15,16 +15,19 @@ import com.ibm.mq.explorer.ui.extensions.IContentPageFactory;
 
 /**
  * @author Jeff Lowrey
- *  
  */
+/**
+ * <p>
+ * A very basic factory.  Minimal code is required here.
+ * 
+ **/
 public class FileContentPageFactory implements IContentPageFactory {
 
     FileNodeTreeContentPage myPage = null;
 
     /*
-     * (non-Javadoc)
-     * 
-     * @see com.ibm.mq.explorer.ui.extensions.IContentPageFactory#getPageId()
+     * <p>
+     * standard getPageId method that returns the class name. 
      */
     public String getPageId() {
         return "com.ibm.mq.explorer.ms0s.mqscscripts.fileNodeTreeContentPage";

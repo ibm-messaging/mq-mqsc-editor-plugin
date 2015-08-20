@@ -21,9 +21,11 @@ import com.ibm.mq.explorer.ui.extensions.MQExtObject;
 import com.ibm.mq.explorer.ui.extensions.TreeNode;
 
 /**
- * @author Admin
- * 
+ * @author Jeff Lowrey
  */
+/**
+ * <p>
+ **/
 public class MQSCScriptsTreeNodeRootFolder extends TreeNode {
 
     /**
