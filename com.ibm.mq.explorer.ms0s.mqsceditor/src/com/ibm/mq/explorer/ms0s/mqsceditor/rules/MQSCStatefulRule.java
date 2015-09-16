@@ -34,6 +34,16 @@ import com.ibm.mq.explorer.ms0s.mqsceditor.lang.MQSCLanguageConfigurator;
  * @author Jeff Lowrey
  * 
  */
+
+/**
+ * <p>
+ * This is the rule that uses state information on the text it had arleady seen to 
+ * ensure that the current bits of text are valid.  It uses the MQSCLanugageConfigurator to
+ * identify specific data in the text and merely focuses on what state it's in and what type of
+ * token is next.  
+ **/
+
+
 public class MQSCStatefulRule implements IRule {
 	protected static final int INVALID_STATE = 0;
 
@@ -147,11 +157,8 @@ public class MQSCStatefulRule implements IRule {
      */
 	@SuppressWarnings("rawtypes")
 	public IToken evaluate(ICharacterScanner scanner) {
-		// NOTE: FIX ME: "deal with termination if" -- what the heck did I mean
-		// here?
 		// TODO: deal with two word parameters, like 'cancel offload'?
 		char closeParen, openParen;
-		// MQSCCommandEvent myEvent;
 		IToken token;
 		MQSCDefaultScanner mqscScanner = (MQSCDefaultScanner) scanner;
 		int startPos = mqscScanner.getOffset();
@@ -162,7 +169,6 @@ public class MQSCStatefulRule implements IRule {
 		char cC = (char) c;
 		char lookAhead;
 
-		// Object parmTable = null;
 		Object objList = null;
 		// Handle special characters
 		printState(0, startPos);

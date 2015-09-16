@@ -21,7 +21,15 @@ import com.ibm.mq.explorer.ms0s.mqsceditor.rules.MQSCCodeScanner;
 import com.ibm.mq.explorer.ms0s.mqsceditor.util.MQSCColorProvider;
 
 /**
+ * @author Jeff Lowrey
  */
+
+/**
+ * <p>
+ * This extends AbstractUIPlugin to provide the main plugin class. 
+ * It creates the necessary editor components for working with MQSC text.  
+ **/
+
 public class MQSCEditorPlugin extends AbstractUIPlugin {
 
     public final static String MQSC_PARTITIONING = "__mqsc_partitioning";

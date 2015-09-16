@@ -11,6 +11,15 @@
  *******************************************************************************/
 package com.ibm.mq.explorer.ms0s.mqsceditor.util;
 
+/**
+ * @author Jeff Lowrey
+ */
+
+/**
+ * <p>
+ * This provides the colors for highlighting different parts of MQSC text.
+ * It should eventually use values taken from preferences, or default text colors. 
+ **/
 
 import java.util.*;
 

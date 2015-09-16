@@ -14,6 +14,14 @@ package com.ibm.mq.explorer.ms0s.mqsceditor.rules;
 import org.eclipse.jface.text.rules.Token;
 
 import com.ibm.mq.explorer.ms0s.mqsceditor.events.MQSCCommandEvent;
+/**
+ * @author Jeff Lowrey
+ */
+
+/**
+ * <p>
+ * This extends the Token class to add minimimal support for MQSCCommandEvents 
+ **/
 
 
 public class MQSCToken extends Token {

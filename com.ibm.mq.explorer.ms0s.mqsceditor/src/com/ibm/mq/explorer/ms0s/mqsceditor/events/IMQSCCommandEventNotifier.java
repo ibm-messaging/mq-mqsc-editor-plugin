@@ -10,7 +10,16 @@
  *   Jeff Lowrey - Initial Contribution
  *******************************************************************************/
 package com.ibm.mq.explorer.ms0s.mqsceditor.events;
+/**
+ * @author Jeff Lowrey
+ */
 
+/**
+ * <p>
+ * This defines an interface that allows document parsers to send
+ * MQSC Command events as they find each part of the document. 
+ *   
+ **/
 public interface IMQSCCommandEventNotifier {
 	public void fireMQSCEventFound(MQSCCommandEvent eventFound);
     public void addCommandEventListener (IMQSCCommandEventListener listener, boolean registerLocal);

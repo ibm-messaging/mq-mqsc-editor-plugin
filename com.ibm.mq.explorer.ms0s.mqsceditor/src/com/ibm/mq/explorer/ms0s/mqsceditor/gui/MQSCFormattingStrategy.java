@@ -12,7 +12,15 @@
 package com.ibm.mq.explorer.ms0s.mqsceditor.gui;
 
 
+/**
+ * @author Jeff Lowrey
+ */
 
+/**
+ * <p>
+ * This extends the DefaultFormattingStrategy to format MQSC commands to specific line widths.
+ *  This uses the MQSC + continuation character.
+ **/
 public class MQSCFormattingStrategy extends DefaultFormattingStrategy
 {
 

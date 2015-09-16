@@ -17,7 +17,17 @@ import org.eclipse.core.runtime.Status;
 import org.eclipse.jface.text.*;
 import org.eclipse.jface.text.source.IAnnotationHover;
 import org.eclipse.jface.text.source.ISourceViewer;
- 
+/**
+ * @author Jeff Lowrey
+ */
+
+/**
+ * <p>
+ * This implements an IAnnotationHover that provides some additional logging when
+ * the plugin is in debug mode.  
+ **/
+
+
 public class MQSCAnnotationHover implements IAnnotationHover {
 
 	/* (non-Javadoc)

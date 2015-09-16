@@ -14,6 +14,15 @@ package com.ibm.mq.explorer.ms0s.mqsceditor;
 
 import org.eclipse.ui.texteditor.ITextEditor;
 import org.eclipse.ui.texteditor.TextEditorAction;
+/**
+ * @author Jeff Lowrey
+ */
+
+/**
+ * <p>
+ * This creates a TextEditorAction to configure and execute presentation options.  
+ **/
+
 
 public class MQSCPresentationAction extends TextEditorAction {
 

@@ -31,6 +31,17 @@ import com.ibm.mq.explorer.ms0s.mqsceditor.events.MQSCCommandEvent;
 import com.ibm.mq.explorer.ms0s.mqsceditor.lang.MQSCLanguageConfigurator;
 import com.ibm.mq.explorer.ms0s.mqsceditor.model.MQSCDocumentModel;
 import com.ibm.mq.explorer.ms0s.mqsceditor.util.MQSCColorProvider;
+/**
+ * @author Jeff Lowrey
+ */
+
+/**
+ * <p>
+ * This is a BufferedRuleBasedScanner which attaches the right scanners to the right
+ * types of partitions and enables colored text.
+ * It also implements the IMQSCCommandEventNotifier to emit events as parsing happens. 
+ **/
+
 
 public class MQSCCodeScanner extends BufferedRuleBasedScanner implements
         IMQSCCommandEventNotifier {

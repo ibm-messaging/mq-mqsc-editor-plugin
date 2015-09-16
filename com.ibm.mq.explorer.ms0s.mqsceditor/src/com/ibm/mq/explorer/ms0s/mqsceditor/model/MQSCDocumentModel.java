@@ -27,10 +27,15 @@ import com.ibm.mq.explorer.ms0s.mqsceditor.events.IMQSCCommandEventListener;
 import com.ibm.mq.explorer.ms0s.mqsceditor.events.MQSCCommandEvent;
 
 /**
- * 
- * @author jlowrey
- * 
- */
+* @author Jeff Lowrey
+**/
+
+/**
+* <p>
+* This builds an internal model of the MQSC document and publishes events as that document is parsed.  
+**/
+
+
 public class MQSCDocumentModel implements IMQSCCommandEventListener {
 
     SortedMap<Object, Object> fModel;

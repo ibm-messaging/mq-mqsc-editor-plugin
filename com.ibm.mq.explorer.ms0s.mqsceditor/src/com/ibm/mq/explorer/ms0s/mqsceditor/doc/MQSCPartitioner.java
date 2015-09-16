@@ -10,6 +10,17 @@
  *   Jeff Lowrey - Initial Contribution
  *******************************************************************************/
 package com.ibm.mq.explorer.ms0s.mqsceditor.doc;
+/**
+ * @author Jeff Lowrey
+ */
+
+/**
+ * <p>
+ * This is a coarse grained lexer that identifies lines that start 
+ * with MQSC Verbs and creates a document partition that encompasses
+ * the command for each one. 
+ *
+ **/
 
 import java.lang.reflect.InvocationTargetException;
 

@@ -13,11 +13,16 @@ package com.ibm.mq.explorer.ms0s.mqsceditor.gui;
 
 import org.eclipse.jface.text.formatter.IFormattingStrategy;
 
-
 /**
- * 
  * @author Jeff Lowrey
  */
+
+/**
+ * <p>
+ * This implements an iFormattingStrategy to format documents.
+ * This formatter does nothing.  
+ **/
+
 public class DefaultFormattingStrategy implements IFormattingStrategy
 {
 	protected static final String lineSeparator = System.getProperty("line.separator");

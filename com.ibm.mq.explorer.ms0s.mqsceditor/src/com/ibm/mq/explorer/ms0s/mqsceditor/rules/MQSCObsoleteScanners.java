@@ -14,7 +14,7 @@ package com.ibm.mq.explorer.ms0s.mqsceditor.rules;
 
 /**
  * @author Jeff Lowrey
- *
+ *<p>
  * This file holds code to build partition specific scanners using inline data elements.
  * All of these became obsolete once MQSCCodeScanner and MQSCDefaultScanner were converted
  * to use MQSCLanguageConfiguarator.

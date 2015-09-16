@@ -46,15 +46,20 @@ import com.ibm.mq.explorer.ms0s.mqsceditor.rules.MQSCCodeScanner;
 import com.ibm.mq.explorer.ms0s.mqsceditor.rules.MQSCToken;
 
 /**
- * Example Java completion processor.
+ * @author Jeff Lowrey
  */
+
+/**
+ * <p>
+ * This reacts to requests for code completion and produces the relevant
+ * suggestions based on where in the MQSC command the request came from.  
+ * It uses MQSC Command Event objects attaced to each parser token to
+ * determine what values to retrieve from the MQSC Language configuration.
+ **/
+
 public class MQSCCompletionProcessor implements IContentAssistProcessor {
     private String lineDelim = null;
 
-    /**
-     * Simple content assist tip closer. The tip is valid in a range of 5
-     * characters around its popup location.
-     */
     protected static class Validator implements IContextInformationValidator,
             IContextInformationPresenter {
 
@@ -206,13 +211,8 @@ public class MQSCCompletionProcessor implements IContentAssistProcessor {
                     lastTypeFound = -1;
                 }
                 boolean halt = false;
-                //find out where we are
                 List dupParams = new ArrayList();
                 String subTypeName = " ";
-//                String objectName;
-//                List subTypes;
-//                subTypes.size();
-//                objectName.length();
 //                boolean hasSubType = false;
                 while ((myToken != null) && (!myToken.isEOF()) && !halt) {
                     myToken = (IToken) scanner.nextToken();
@@ -228,12 +228,8 @@ public class MQSCCompletionProcessor implements IContentAssistProcessor {
                                         .trim();
                                 if (myEvent.getOffset() <= documentOffset)
                                     lastTypeFound = myEvent.getType();
-//                                subTypes = MQSCLanguageConfigurator
-//                                        .getLanguageConfiguration()
-//                                        .getSubTypesForObject(cmdName, objType);
                             } else if (myEvent.getType() == MQSCCommandEvent.OBJECT_NAME_EVENT) {
-//                                objectName = myEvent.getValue().toUpperCase()
-//                                        .trim();
+                            	//We can't create proposals for the names of MQSC objects
                             } else if (myEvent.getType() == MQSCCommandEvent.TERMINAL_EVENT) {
                                 halt = true;
                             } else if (myEvent.getType() == MQSCCommandEvent.PARAMETER_NAME_EVENT) {
@@ -312,17 +308,8 @@ public class MQSCCompletionProcessor implements IContentAssistProcessor {
         for (Iterator myIter = myList.iterator(); myIter.hasNext();) {
             String proposal = (String) myIter.next();
             if (proposal.toUpperCase().startsWith(startsWith.toUpperCase())) {
-                //                IContextInformation info = new ContextInformation(
-                //                        proposal.toUpperCase()
-                //                        MessageFormat
-                //                                .format(
-                //                                        MQSCEditorMessages
-                //                                                .getString("CompletionProcessor.Proposal.ContextInfo.pattern"),
-                //                                       new Object[] { proposal.toUpperCase() }));
                 if (dupParams != null
                         && dupParams.contains((Object) proposal.toUpperCase())) {
-                    //do not propose parameter names for which we already
-                    // have values.
                 } else {
                     if (shouldAppendParens(proposal, commandName, isParen)) {
                         myProposals.add(new CompletionProposal(proposal
@@ -368,8 +355,6 @@ public class MQSCCompletionProcessor implements IContentAssistProcessor {
         int result = docOffset - 1;
         try {
             char c;
-//            char lb1 = ' ';
-//            char lb2 = ' ';
             c = document.getChar(result);
             while (!Character.isWhitespace(c) && c != '\n' && c != '\r'
                     && result > 0) {
@@ -385,7 +370,6 @@ public class MQSCCompletionProcessor implements IContentAssistProcessor {
             }
         }
         return (result == 0) ? 0 : result + 1;
-        //return result;
     }
 
     /*
@@ -393,17 +377,6 @@ public class MQSCCompletionProcessor implements IContentAssistProcessor {
      */
     public IContextInformation[] computeContextInformation(ITextViewer viewer,
             int documentOffset) {
-        /*
-         * IContextInformation[] result = new IContextInformation[5]; for (int i =
-         * 0; i < result.length; i++) result[i] = new ContextInformation(
-         * MessageFormat .format( MQSCEditorMessages
-         * .getString("CompletionProcessor.ContextInfo.display.pattern"), new
-         * Object[] { new Integer(i), new Integer(documentOffset) }),
-         * MessageFormat .format( MQSCEditorMessages
-         * .getString("CompletionProcessor.ContextInfo.value.pattern"), new
-         * Object[] { new Integer(i), new Integer(documentOffset - 5), new
-         * Integer(documentOffset + 5) })); return result;
-         */
         return null;
     }
 
@@ -436,7 +409,6 @@ public class MQSCCompletionProcessor implements IContentAssistProcessor {
      */
     public char[] getCompletionProposalAutoActivationCharacters() {
         return null;
-        //        return new char[] { '+', '-' };
     }
 
     /*

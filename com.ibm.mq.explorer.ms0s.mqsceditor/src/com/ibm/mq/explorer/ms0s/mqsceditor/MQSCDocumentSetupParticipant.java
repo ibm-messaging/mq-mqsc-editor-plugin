@@ -18,6 +18,16 @@ import org.eclipse.jface.text.IDocumentPartitioner;
 
 import com.ibm.mq.explorer.ms0s.mqsceditor.doc.MQSCPartitioner;
 import com.ibm.mq.explorer.ms0s.mqsceditor.model.MQSCDocumentModel;
+/**
+ * @author Jeff Lowrey
+ */
+
+/**
+ * <p>
+ * This implements an IDocumentSetupParticipant to connect various parts of the plugin
+ * to the Eclipse runtime editor framework.  
+ **/
+
 
 public class MQSCDocumentSetupParticipant implements IDocumentSetupParticipant {
 

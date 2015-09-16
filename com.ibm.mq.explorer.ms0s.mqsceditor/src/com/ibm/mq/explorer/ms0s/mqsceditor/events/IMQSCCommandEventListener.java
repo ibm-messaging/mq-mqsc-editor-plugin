@@ -10,6 +10,22 @@
  *   Jeff Lowrey - Initial Contribution
  *******************************************************************************/
 package com.ibm.mq.explorer.ms0s.mqsceditor.events;
+/**
+ * @author Jeff Lowrey
+ */
+
+/**
+ * <p>
+ * This defines an interface for relevant listeners to receive
+ * MQSC Command Events. These are events that are emitted from 
+ * the fine grained parsing of the MQSC document. 
+ * 
+ * This was intended to enable the outline view to update asynchronously
+ * instead of when the document is saved.
+ * However, these events are emitted at least twice for each document, and
+ * so the Outline view is inconsistent. 
+ * 
+ **/
 
 public interface IMQSCCommandEventListener {
     void mqscTermFound(MQSCCommandEvent eventFound);

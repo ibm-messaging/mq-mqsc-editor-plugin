@@ -20,12 +20,26 @@ import com.ibm.mq.explorer.ms0s.mqsceditor.gui.MQSCContentOutlinePage.Segment;
 import com.ibm.mq.explorer.ms0s.mqsceditor.model.MQSCModelElement;
 
 /**
+ * @author Jeff Lowrey
  */
+
+/**
+ * <p>
+ * This assigns a default image to each item in the outline view.  
+ * 
+ * It should eventually provide command specific graphics, to make it
+ * easier to quickly find a command you want to look at.
+ * 
+ **/
+
 public class MQSCContentOutlineLabelProvider extends LabelProvider {
     /*Ignore for now. 
-    public static final ImageDescriptor MQSC_ALTER_VALID;
+     * We'd like, eventually, to have different icons in the outline view for each
+     * type of MQSC command
+     * 
+     * public static final ImageDescriptor MQSC_ALTER_VALID;
 
-    public static final ImageDescriptor MQSC_ALTER_INVALID;
+     * public static final ImageDescriptor MQSC_ALTER_INVALID;
 
      * static final String BASE_URL = MQSCEditorMessages.getString("/");
      * 
@@ -34,6 +48,7 @@ public class MQSCContentOutlineLabelProvider extends LabelProvider {
      * MQSC_ALTER_VALID = createImageDescriptor(iconPath + "alterok.gif");
      * MQSC_ALTER_INVALID = createImageDescriptor(iconPath + "alterinv.gif"); }
      */
+	
     public void dispose() {
     }
 

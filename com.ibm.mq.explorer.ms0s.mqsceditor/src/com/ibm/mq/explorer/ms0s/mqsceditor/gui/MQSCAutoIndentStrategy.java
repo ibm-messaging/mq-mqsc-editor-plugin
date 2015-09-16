@@ -23,7 +23,16 @@ import org.eclipse.jface.text.TextUtilities;
 import com.ibm.mq.explorer.ms0s.mqsceditor.MQSCEditor;
 import com.ibm.mq.explorer.ms0s.mqsceditor.MQSCEditorMessages;
 import com.ibm.mq.explorer.ms0s.mqsceditor.MQSCEditorPlugin;
+/**
+ * @author Jeff Lowrey
+ */
 
+/**
+ * <p>
+ * This performs indentation on lines in the MQSC Document as 
+ * relevant based on their content.  
+ * This probably doesn't get used.  
+ **/
 public class MQSCAutoIndentStrategy extends DefaultIndentLineAutoEditStrategy {
 
 	public MQSCAutoIndentStrategy() {

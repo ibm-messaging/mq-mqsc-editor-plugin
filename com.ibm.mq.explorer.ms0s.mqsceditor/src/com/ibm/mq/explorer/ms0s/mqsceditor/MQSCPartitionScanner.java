@@ -25,6 +25,24 @@ import org.eclipse.jface.text.rules.WordRule;
 
 import com.ibm.mq.explorer.ms0s.mqsceditor.rules.MQSCPartitionRule;
 
+/**
+ * @author Jeff Lowrey
+ */
+
+/**
+ * <p>
+ * This creates a RuleBasedPartitionScanner to identify the individual 
+ * MQSC Commands in an MQSC document.  
+ * 
+ * It currently doesn't use the MQSCLanguageConfigurator to determine what 
+ * the main verbs in MQSC are.  This might be complicated to implement, given
+ * that we also need to build constants for each partition type.
+ * 
+ * It could be looked into.
+ * 
+ **/
+
+
 public class MQSCPartitionScanner extends RuleBasedPartitionScanner {
     public final static String MQSC_COMMENT = "__mqsc_comment";
 
@@ -163,8 +181,6 @@ public class MQSCPartitionScanner extends RuleBasedPartitionScanner {
      */
     @SuppressWarnings({ "rawtypes","unchecked"})
     public MQSCPartitionScanner() {
-        //      NOTE: FIX ME: What did I mean here? Issue with partitions ending at
-        // the end of file.
         super();
 
         List rules = new ArrayList();
@@ -174,16 +190,6 @@ public class MQSCPartitionScanner extends RuleBasedPartitionScanner {
         for (int i = 0; i < MQSC_PARTITION_TYPES.length; i++) {
             IToken temp = new Token(MQSC_PARTITION_TYPES[i]);
             rules.add(new MQSCPartitionRule(mqscCommandWords[i], temp));
-
-/*            rules.add(new SingleLineRule(mqscCommandWords[i].toLowerCase(),
-                    ";", temp, '+', true, true));
-            rules.add(new SingleLineRule(mqscCommandWords[i].toUpperCase(),
-                    ";", temp, '+', true, true));
-            rules.add(new SingleLineRule(mqscCommandWords[i].toLowerCase(), "",
-                    temp, '+', true, true));
-            rules.add(new SingleLineRule(mqscCommandWords[i].toUpperCase(), "",
-                    temp, '+', true, true));*/
-
         }
 
         IPredicateRule[] result = new IPredicateRule[rules.size()];

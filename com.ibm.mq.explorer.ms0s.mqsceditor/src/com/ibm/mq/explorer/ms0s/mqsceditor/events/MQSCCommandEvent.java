@@ -12,7 +12,16 @@
 package com.ibm.mq.explorer.ms0s.mqsceditor.events;
 
 import java.util.EventObject;
+/**
+ * @author Jeff Lowrey
+ */
 
+/**
+ * <p>
+ * This defines the contents of an MQSC Command Event and methods to access
+ * the fields in it. 
+ * 
+ **/
 public class MQSCCommandEvent extends EventObject {
 
     /**

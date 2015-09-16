@@ -31,10 +31,16 @@ import com.ibm.mq.explorer.ms0s.mqsceditor.rules.MQSCCodeScanner;
 /**
  * @author jlowrey
  */
+/**
+ * <p>
+ * This is a coarse grained parser that creates elements in the 
+ * MQSC Document model that represent the contents of each partition
+ * created by the MQSCPartitioner  
+ * 
+ **/
+
 public class MQSCPartitionParser implements IRunnableWithProgress {
     private ITypedRegion[] partitions;
-
-//    private Display display;
     
     private IDocument fDocument;
     
@@ -42,7 +48,6 @@ public class MQSCPartitionParser implements IRunnableWithProgress {
 
     public MQSCPartitionParser(ITypedRegion[] partitions,Display display, IDocument fDocument) {
         this.partitions = partitions;
-//        this.display = display;
         this.fDocument = fDocument;
     }
 

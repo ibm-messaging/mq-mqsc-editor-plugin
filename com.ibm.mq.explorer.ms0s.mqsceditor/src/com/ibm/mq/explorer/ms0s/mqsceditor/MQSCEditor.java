@@ -49,57 +49,23 @@ import com.ibm.mq.explorer.ms0s.mqsceditor.events.MQSCCommandEvent;
 import com.ibm.mq.explorer.ms0s.mqsceditor.gui.MQSCContentOutlinePage;
 import com.ibm.mq.explorer.ms0s.mqsceditor.model.MQSCDocumentModel;
 import com.ibm.mq.explorer.ms0s.mqsceditor.model.MQSCModelElement;
+/**
+ * @author Jeff Lowrey
+ */
+
+/**
+ * <p>
+ * This is the main TextEditor class. It overrides all of the methods in
+ * TextEditor that it needs or are required.  It handles connecting the document content
+ * with the Editor views and performs save operation on the document.   
+ **/
+
 
 public class MQSCEditor extends TextEditor {
 
     public static final String PLUGIN_ID = "com.ibm.mq.explorer.ms0s.mqsceditor";
 
     private IEditorInput input;
-
-//    private class DefineFoldingRegionAction extends TextEditorAction {
-//
-//        public DefineFoldingRegionAction(ResourceBundle bundle, String prefix,
-//                ITextEditor editor) {
-//            super(bundle, prefix, editor);
-//        }
-//
-//        private IAnnotationModel getAnnotationModel(ITextEditor editor) {
-//            return (IAnnotationModel) editor
-//                    .getAdapter(ProjectionAnnotationModel.class);
-//        }
-//
-//        /*
-//         * @see org.eclipse.jface.action.Action#run()
-//         */
-//        public void run() {
-//            ITextEditor editor = getTextEditor();
-//            ISelection selection = editor.getSelectionProvider().getSelection();
-//            if (selection instanceof ITextSelection) {
-//                ITextSelection textSelection = (ITextSelection) selection;
-//                if (!textSelection.isEmpty()) {
-//                    IAnnotationModel model = getAnnotationModel(editor);
-//                    if (model != null) {
-//
-//                        int start = textSelection.getStartLine();
-//                        int end = textSelection.getEndLine();
-//
-//                        try {
-//                            IDocument document = editor.getDocumentProvider()
-//                                    .getDocument(editor.getEditorInput());
-//                            int offset = document.getLineOffset(start);
-//                            int endOffset = document.getLineOffset(end + 1);
-//                            Position position = new Position(offset, endOffset
-//                                    - offset);
-//                            model.addAnnotation(new ProjectionAnnotation(),
-//                                    position);
-//                        } catch (BadLocationException x) {
-//                            // ignore
-//                        }
-//                    }
-//                }
-//            }
-//        }
-//    }
 
     /** The outline page */
     private MQSCContentOutlinePage fOutlinePage;

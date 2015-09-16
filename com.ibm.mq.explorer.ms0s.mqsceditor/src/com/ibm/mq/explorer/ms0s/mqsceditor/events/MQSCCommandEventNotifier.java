@@ -20,6 +20,18 @@ import org.eclipse.core.runtime.Status;
 
 import com.ibm.mq.explorer.ms0s.mqsceditor.MQSCEditor;
 import com.ibm.mq.explorer.ms0s.mqsceditor.MQSCEditorPlugin;
+/**
+ * @author Jeff Lowrey
+ */
+
+/**
+ * <p>
+ * This provides the implementation of the MQSC Command Event Notifier
+ * to emit events that registered producers want to send.
+ * It simply calls methods on each registered listener to pass it the event that's
+ * been received.  
+ *   
+ **/
 
 public class MQSCCommandEventNotifier implements IMQSCCommandEventNotifier {
     private static List<IMQSCCommandEventListener> fEventListeners;

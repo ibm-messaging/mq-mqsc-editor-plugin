@@ -22,9 +22,14 @@ import java.util.Set;
 import com.ibm.mq.explorer.ms0s.mqsceditor.events.MQSCCommandEvent;
 
 /**
- * @author jlowrey
- * 
+ * @author Jeff Lowrey
  */
+
+/**
+ * <p>
+ * This class is a single element in the MQSCDocumentModel tree. 
+ **/
+
 public class MQSCModelElement {
     private int fOffset; // The offset of the partition that contains this
                          // command

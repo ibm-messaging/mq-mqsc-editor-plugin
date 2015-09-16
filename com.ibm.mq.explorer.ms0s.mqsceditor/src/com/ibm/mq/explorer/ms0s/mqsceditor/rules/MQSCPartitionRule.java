@@ -15,6 +15,19 @@ import org.eclipse.jface.text.rules.ICharacterScanner;
 import org.eclipse.jface.text.rules.IPredicateRule;
 import org.eclipse.jface.text.rules.IToken;
 import org.eclipse.jface.text.rules.Token;
+/**
+ * @author Jeff Lowrey
+ */
+
+/**
+ * <p>
+ * This defines the rules necessary to break an MQSC document into partitions that
+ * hold individual MQSC comands.  
+ * It handles both MQSC line continuations : "+" for "allow space after the continuation, and
+ * "-" for don't allow space after the continuation.   So "DEF+   INE" becomes "DEFINE", 
+ * but "DEF-   INE" becomes "DEF   INE". 
+ **/
+
 
 public class MQSCPartitionRule implements IPredicateRule {
 

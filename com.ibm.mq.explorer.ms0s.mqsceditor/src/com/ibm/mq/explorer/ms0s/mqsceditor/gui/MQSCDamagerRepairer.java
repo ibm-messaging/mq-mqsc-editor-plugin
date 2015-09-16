@@ -18,16 +18,22 @@ import org.eclipse.jface.text.rules.DefaultDamagerRepairer;
 import org.eclipse.jface.text.rules.ITokenScanner;
 
 /**
- *
+ * @author Jeff Lowrey
  */
+
+/**
+ * <p>
+ * This extends the DefaultDamagerRepairer to register a scanner and return the correct partition.
+ *  This repairer does nothing unique.
+ **/
 public class MQSCDamagerRepairer extends DefaultDamagerRepairer {
 
-    public MQSCDamagerRepairer(ITokenScanner scanner) {
-        super(scanner);
-    }
+	public MQSCDamagerRepairer(ITokenScanner scanner) {
+		super(scanner);
+	}
 
-    public IRegion getDamageRegion(ITypedRegion partition, DocumentEvent e,
-            boolean documentPartitioningChanged) {
-        return partition;
-    }
+	public IRegion getDamageRegion(ITypedRegion partition, DocumentEvent e,
+			boolean documentPartitioningChanged) {
+		return partition;
+	}
 }

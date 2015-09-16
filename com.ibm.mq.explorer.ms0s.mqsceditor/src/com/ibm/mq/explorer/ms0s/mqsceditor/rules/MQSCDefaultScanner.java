@@ -30,6 +30,16 @@ import com.ibm.mq.explorer.ms0s.mqsceditor.MQSCEditor;
 import com.ibm.mq.explorer.ms0s.mqsceditor.MQSCEditorPlugin;
 import com.ibm.mq.explorer.ms0s.mqsceditor.util.MQSCColorProvider;
 import com.ibm.mq.explorer.ms0s.mqsceditor.util.MQSCWordDetector;
+/**
+ * @author Jeff Lowrey
+ */
+
+/**
+ * <p>
+ * This extends the base CodeScanner adding several different constructors to work with different
+ * types of code partitions. 
+ **/
+
 
 class MQSCDefaultScanner extends MQSCCodeScanner {
     private int fPartStart, fPartLength,fPartIndex;

@@ -12,6 +12,15 @@
 package com.ibm.mq.explorer.ms0s.mqsceditor.util;
 
 import org.eclipse.jface.text.rules.IWordDetector;
+/**
+ * @author Jeff Lowrey
+ */
+
+/**
+ * <p>
+ * This basic class to instruct a token scanner when the current character is within a
+ * word or at the beginning of a word.  
+ **/
 public class MQSCWordDetector implements IWordDetector {
     private boolean allowWhiteSpace;
 

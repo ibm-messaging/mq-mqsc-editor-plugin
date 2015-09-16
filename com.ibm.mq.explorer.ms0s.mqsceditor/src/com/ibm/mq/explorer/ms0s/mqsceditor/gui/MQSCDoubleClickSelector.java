@@ -22,7 +22,15 @@ import org.eclipse.jface.text.ITextViewer;
 import com.ibm.mq.explorer.ms0s.mqsceditor.MQSCEditor;
 import com.ibm.mq.explorer.ms0s.mqsceditor.MQSCEditorPlugin;
 
+/**
+ * @author Jeff Lowrey
+ */
 
+/**
+ * <p>
+ * This implements an ITextDoubleClickStrategy to select and match brackets or words or etc.  
+ * It currently works for "{" and "}", but that's probably default behavior and should be removed.
+ **/
 public class MQSCDoubleClickSelector implements ITextDoubleClickStrategy {
 
 	protected ITextViewer fText;

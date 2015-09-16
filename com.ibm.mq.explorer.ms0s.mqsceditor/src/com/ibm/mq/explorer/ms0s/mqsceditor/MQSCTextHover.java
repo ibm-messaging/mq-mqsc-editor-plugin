@@ -16,6 +16,14 @@ import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.jface.text.*;
 import org.eclipse.swt.graphics.Point;
+/**
+ * @author Jeff Lowrey
+ */
+
+/**
+ * <p>
+ * This enables hover text.   
+ **/
 
 public class MQSCTextHover implements ITextHover {
 

@@ -13,6 +13,14 @@ package com.ibm.mq.explorer.ms0s.mqsceditor.util;
 
 
 import org.eclipse.jface.text.rules.IWhitespaceDetector;
+/**
+ * @author Jeff Lowrey
+ */
+
+/**
+ * <p>
+ * I don't know why this class is here, or if anything uses it.
+ **/
 
 public class MQSCWhitespaceDetector implements IWhitespaceDetector {
 

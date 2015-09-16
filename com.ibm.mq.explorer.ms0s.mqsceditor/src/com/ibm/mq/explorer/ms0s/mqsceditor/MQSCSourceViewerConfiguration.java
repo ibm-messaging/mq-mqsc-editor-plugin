@@ -35,6 +35,15 @@ import com.ibm.mq.explorer.ms0s.mqsceditor.gui.MQSCDoubleClickSelector;
 import com.ibm.mq.explorer.ms0s.mqsceditor.gui.MQSCFormattingStrategy;
 import com.ibm.mq.explorer.ms0s.mqsceditor.rules.MQSCCodeScanner;
 
+/**
+ * @author Jeff Lowrey
+ */
+
+/**
+ * <p>
+ * This extends SourceViewerConfiguration to provide the necessary methods for the
+ * SourceViewer to access the objects it needs.   
+ **/
 
 public class MQSCSourceViewerConfiguration extends SourceViewerConfiguration {
 
@@ -72,10 +81,6 @@ public class MQSCSourceViewerConfiguration extends SourceViewerConfiguration {
         IAutoEditStrategy strategy = (IDocument.DEFAULT_CONTENT_TYPE
                 .equals(contentType) ? new MQSCAutoIndentStrategy()
                 : new DefaultIndentLineAutoEditStrategy());
-        //Possible indent strategy: Replace entire text of document with
-        // contents of valid MQSCCommandEvents
-
-        //		IAutoEditStrategy strategy= new MQSCAutoIndentStrategy();
         return new IAutoEditStrategy[] { strategy };
     }
 
@@ -182,16 +187,10 @@ public class MQSCSourceViewerConfiguration extends SourceViewerConfiguration {
     public IPresentationReconciler getPresentationReconciler(
             ISourceViewer sourceViewer) {
 
-//        MQSCColorProvider provider = MQSCEditorPlugin.getDefault()
-//                .getMQSCColorProvider();
-        PresentationReconciler reconciler = new PresentationReconciler();
+    	PresentationReconciler reconciler = new PresentationReconciler();
         reconciler
                 .setDocumentPartitioning(getConfiguredDocumentPartitioning(sourceViewer));
         MQSCDamagerRepairer dr = null;
-/*        DefaultDamagerRepairer dr1 = null;
-        dr1 = new DefaultDamagerRepairer(new SingleTokenScanner(
-                new TextAttribute(provider
-                        .getColor(MQSCColorProvider.MQSC_INVALID_VALUE))));*/
         BufferedRuleBasedScanner scanner = null;
         scanner = ((MQSCCodeScanner) MQSCEditorPlugin.getDefault()
                 .getMQSCCodeScanner())

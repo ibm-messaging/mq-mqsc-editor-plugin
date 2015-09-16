@@ -15,14 +15,38 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import com.ibm.mq.explorer.ms0s.mqsceditor.MQSCPartitionScanner;
+/**
+ * @author Jeff Lowrey
+ */
 
+/**
+ * <p>
+ * This class represents the Editor's understanding of the MQSC langauge.  It defines all of the
+ * command verbs that MQSC knows about and associates them each with the objects that they can affect.
+ * All objects are associated with the parameters that object can use, for each specific command.
+ * This model DOES NOT implement parameter value level knowledge - so it does not know a 
+ * string from an integer or etc.  
+ * <p>
+ * This class is built and maintained by hand. Trying to build it automatically from anything useful
+ * has been difficult and resulted in very large objects. 
+ * 
+ * <p>
+ * Some notes on terminology: "DISPLAY" is an MQSC command. "QUEUE" is an MQSC object. 
+ * "SSLPEER" is an MQSC Parameter.  
+ * 
+ * Objects can have sub-types.  For example, "QLOCAL" is a subtype of "QUEUE".
+ * More particularly, a SENDER channel is a Subtype of Channel.  The command never uses
+ * "Sender" as the object, but the parameters that the object takes depends on 
+ * what subtype of Channel the object is. 
+ * 
+ * All of the data here is stored in hashs.  Each Command has a layered hash of 
+ * the Objects it describes and then the relevant Parameters.
+ * 
+ * Additional hashes are used for further information about the MQSC language - for example if there 
+ * are parameters that don't hold values (like TRIGGER).
+ * 
+ **/
 public class MQSCLanguageConfigurator {
-    // NOTODO: Build hashmap of objects & params, Read from file.
-    // above NOTTODO is removed. REALTODO is to create a machine consumable
-    // definition and use that to generate a parser.
-    // This thing is crappy, but barely functional.
-
-    // start review for 7.5 support 3/07/13
     private static final String[] commandNames = { "*", "alter", "alt",
             "archive", "arc", "backup", "clear", "define", "def", "delete",
             "display", "dis", "move", "ping", "purge", "recover", "rec",
@@ -182,12 +206,6 @@ public class MQSCLanguageConfigurator {
     private static final String[] alterMqttChannelParamters = { "chltype",
             "backlog", "jaascfg", "localaddr", "mcauser", "port","protocol", "sslciph",
             "sslcauth", "sslkeyp", "sslkeyr", "trptype", "usecltid" };
-    /*
-     * private static final String[] alterListenerParameters = {
-     * "adapter","backlog"
-     * ,"commands","control","descr","ipaddr","loclname","ntbnames","port",
-     * "sessions","socket","tpname","trptype",};
-     */
     private static final String[] alterComminfoParameters = { "bridge",
             "ccsid", "commev", "descr", "encoding", "grpaddr", "mchbint",
             "mcprop", "monint", "msghist", "nsubhist", "port" };
@@ -1307,19 +1325,9 @@ public class MQSCLanguageConfigurator {
         displayMap.put("ENTAUTH", disEntauthParameters);
         displayMap.put("GROUP", disGroupParameters);
 
-//        subTypeMap = new HashMap();
-//        subTypeMap.put(" ", lsrSubTypeParameters);
-//        subTypeMap.put("LU62", disLsrLuParameters);
-//        subTypeMap.put("NETBIOS", disLsrNetbiosParameters);
-//        subTypeMap.put("SPX", disLsrSpxParameters);
-//        subTypeMap.put("TCP", disLsrTCPParameters);
-//        subTypeMap.put("ALL", disLsrAllParameters);
 
         displayMap.put("LISTENER", disLsrAllParameters);
         displayMap.put("LSTR", disLsrAllParameters);
-
-        // displayMap.put("LISTENER",disListenerParameters);
-        // displayMap.put("LSTR",disListenerParameters);
 
         displayMap.put("LOG", disLogParameters);
         displayMap.put("LSSTATUS", disLsstatusParameters);

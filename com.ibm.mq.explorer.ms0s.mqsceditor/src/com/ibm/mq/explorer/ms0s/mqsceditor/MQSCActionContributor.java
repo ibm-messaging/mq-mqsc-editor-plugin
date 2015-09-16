@@ -9,7 +9,6 @@
  * Contributors:
  *   Jeff Lowrey - Initial Contribution
  *******************************************************************************/
-
 package com.ibm.mq.explorer.ms0s.mqsceditor;
 
 import java.util.ResourceBundle;
@@ -25,6 +24,15 @@ import org.eclipse.ui.texteditor.ITextEditor;
 import org.eclipse.ui.texteditor.ITextEditorActionDefinitionIds;
 import org.eclipse.ui.texteditor.RetargetTextEditorAction;
 import org.eclipse.ui.texteditor.TextEditorAction;
+/**
+ * @author Jeff Lowrey
+ */
+
+/**
+ * <p>
+ * This sets up the default ActionContributor.  
+ **/
+
 
 public class MQSCActionContributor extends TextEditorActionContributor {
 

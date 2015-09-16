@@ -16,6 +16,15 @@ import java.util.ResourceBundle;
 
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
+/**
+ * @author Jeff Lowrey
+ */
+
+/**
+ * <p>
+ * This loads any messages from the resource bundle for the plugin.
+ **/
+
 
 public class MQSCEditorMessages {
 
