@@ -126,7 +126,6 @@ public class MQSCStatefulRule implements IRule {
 	 * @param commands
 	 * @param objects
 	 * @param parameters
-	 * @param values
 	 */
 	@SuppressWarnings("rawtypes")
 	public MQSCStatefulRule(IWordDetector detector, Map commands, Map objects,

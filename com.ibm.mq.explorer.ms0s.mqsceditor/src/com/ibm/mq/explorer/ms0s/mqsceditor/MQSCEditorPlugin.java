@@ -48,8 +48,6 @@ public class MQSCEditorPlugin extends AbstractUIPlugin {
 
     /**
      * Creates a new plugin instance.
-     * 
-     * @param descriptor
      */
     public MQSCEditorPlugin() {
         super();

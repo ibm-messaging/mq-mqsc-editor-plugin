@@ -24,12 +24,12 @@ import org.eclipse.jface.text.rules.IWordDetector;
 public class MQSCWordDetector implements IWordDetector {
     private boolean allowWhiteSpace;
 
-    /**
-     * @param allowWhiteSpace
-     */
     public MQSCWordDetector() {
         super();
     }
+    /**
+     * @param allowWhiteSpace
+     */
     public MQSCWordDetector(boolean allowWhiteSpace) {
         super();
         this.allowWhiteSpace = allowWhiteSpace;
