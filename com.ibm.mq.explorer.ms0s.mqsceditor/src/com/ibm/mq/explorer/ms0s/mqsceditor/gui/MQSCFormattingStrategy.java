@@ -24,7 +24,7 @@ package com.ibm.mq.explorer.ms0s.mqsceditor.gui;
 public class MQSCFormattingStrategy extends DefaultFormattingStrategy
 {
 
-	private static final String lineSeparator = System.getProperty("line.separator");
+	private static final String myLineSeparator = System.getProperty("line.separator");
 
 	public MQSCFormattingStrategy()
 	{
@@ -35,7 +35,7 @@ public class MQSCFormattingStrategy extends DefaultFormattingStrategy
 	{
 		if (indentation.length() == 0)
 			return content;
-		return " +" + lineSeparator + content.trim() + lineSeparator + indentation;
+		return " +" + myLineSeparator + content.trim() + myLineSeparator + indentation;
 	}
 
 }

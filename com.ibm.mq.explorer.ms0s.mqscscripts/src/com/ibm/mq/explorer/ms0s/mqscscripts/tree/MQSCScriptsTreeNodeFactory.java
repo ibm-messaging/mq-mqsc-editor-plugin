@@ -8,6 +8,7 @@
  */
 package com.ibm.mq.explorer.ms0s.mqscscripts.tree;
 
+import com.ibm.mq.explorer.ms0s.mqscscripts.U;
 import com.ibm.mq.explorer.ui.extensions.ITreeNodeFactory;
 import com.ibm.mq.explorer.ui.extensions.MQExtObject;
 import com.ibm.mq.explorer.ui.extensions.TreeNode;
@@ -29,6 +30,7 @@ public class MQSCScriptsTreeNodeFactory implements ITreeNodeFactory {
     TreeNode node = null;
 
     public void addChildrenToTreeNode(TreeNode arg0) {
+    	U.debug("MQSCScriptsTreeNodeFactory: addChildrenToTreeNode() id=" + arg0!=null?arg0.getTreeNodeId():"<<null>>");
         if (arg0 == null) {return;}
         String id = arg0.getTreeNodeId();
         if (id.equals(TreeNodeId.NODEID_WMQ)) {

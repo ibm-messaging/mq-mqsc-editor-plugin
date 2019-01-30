@@ -41,8 +41,8 @@ public class SaveResultsWizard extends Wizard implements INewWizard {
             return false;
     }
 
-    public void init(IWorkbench workbench, IStructuredSelection selection) {
-        this.selection = selection;
+    public void init(IWorkbench workbench, IStructuredSelection _selection) {
+        this.selection = _selection;
     }
 
 }

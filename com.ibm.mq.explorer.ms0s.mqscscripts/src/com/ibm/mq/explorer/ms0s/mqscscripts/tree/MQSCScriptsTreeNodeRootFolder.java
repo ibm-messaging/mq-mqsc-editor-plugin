@@ -28,117 +28,122 @@ import com.ibm.mq.explorer.ui.extensions.TreeNode;
  **/
 public class MQSCScriptsTreeNodeRootFolder extends TreeNode {
 
-    /**
+	/**
 	 */
-    public MQSCScriptsTreeNodeRootFolder(TreeNode arg0, MQExtObject arg1,
-            String arg2) {
-        super(arg0, arg1, arg2);
+	public MQSCScriptsTreeNodeRootFolder(TreeNode arg0, MQExtObject arg1,
+			String arg2) {
+		super(arg0, arg1, arg2);
 
-    }
+	}
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see java.lang.Object#toString()
-     */
-    public String toString() {
-        IPreferenceStore store = MQSCScriptsPlugin.getDefault()
-                .getPreferenceStore();
-        boolean hideProjects = store
-                .getBoolean(PreferenceConstants.P_HIDEPROJECT);
-        if (hideProjects) {
-            return "MQSC Scripts";
-        } else {
-            return "MQSC Script Projects";
-        }
-    }
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see java.lang.Object#toString()
+	 */
+	public String toString() {
+		IPreferenceStore store;
+		MQSCScriptsPlugin plugin = MQSCScriptsPlugin.getDefault();
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see com.ibm.mq.explorer.ui.extensions.TreeNode#getId()
-     */
-    public String getId() {
-        return "com.ibm.mq.explorer.ms0s.mqscscripts.scriptTreeNodeFolder";
-    }
+		if (plugin != null) {
+			store = plugin.getPreferenceStore();
+			boolean hideProjects = store
+					.getBoolean(PreferenceConstants.P_HIDEPROJECT);
+			if (hideProjects) {
+				return "MQSC Scripts";
+			} else {
+				return "MQSC Script Projects";
+			}
+		} else {
+			return "MQSC Script Projects";
+		}
+	}
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see com.ibm.mq.explorer.ui.extensions.TreeNode#getSequence()
-     */
-    public String getSequence() {
-        return "99999";
-    }
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.ibm.mq.explorer.ui.extensions.TreeNode#getId()
+	 */
+	public String getId() {
+		return "com.ibm.mq.explorer.ms0s.mqscscripts.scriptTreeNodeFolder";
+	}
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see com.ibm.mq.explorer.ui.extensions.TreeNode#getContentPageId()
-     */
-    public String getContentPageId() {
-        return "com.ibm.mq.explorer.ms0s.mqscscripts.folderTreeContentPage";
-    }
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.ibm.mq.explorer.ui.extensions.TreeNode#getSequence()
+	 */
+	public String getSequence() {
+		return "99999";
+	}
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see com.ibm.mq.explorer.ui.extensions.TreeNode#getHelpId()
-     */
-    public String getHelpId() {
-        return null;
-    }
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.ibm.mq.explorer.ui.extensions.TreeNode#getContentPageId()
+	 */
+	public String getContentPageId() {
+		return "com.ibm.mq.explorer.ms0s.mqscscripts.folderTreeContentPage";
+	}
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see com.ibm.mq.explorer.ui.extensions.TreeNode#getIcon()
-     */
-    public Image getIcon() {
-        ISharedImages myImages = PlatformUI.getWorkbench().getSharedImages();
-        return myImages.getImage(ISharedImages.IMG_OBJ_FOLDER);
-    }
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.ibm.mq.explorer.ui.extensions.TreeNode#getHelpId()
+	 */
+	public String getHelpId() {
+		return null;
+	}
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see
-     * com.ibm.mq.explorer.ui.extensions.TreeNode#compare(com.ibm.mq.explorer
-     * .ui.extensions.TreeNode, com.ibm.mq.explorer.ui.extensions.TreeNode)
-     */
-    public int compare(TreeNode arg0, TreeNode arg1) {
-        return 0;
-    }
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.ibm.mq.explorer.ui.extensions.TreeNode#getIcon()
+	 */
+	public Image getIcon() {
+		ISharedImages myImages = PlatformUI.getWorkbench().getSharedImages();
+		return myImages.getImage(ISharedImages.IMG_OBJ_FOLDER);
+	}
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see
-     * com.ibm.mq.explorer.ui.extensions.TreeNode#isContextMenuFromUiObject()
-     */
-    public boolean isContextMenuFromUiObject() {
-        return false;
-    }
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * com.ibm.mq.explorer.ui.extensions.TreeNode#compare(com.ibm.mq.explorer
+	 * .ui.extensions.TreeNode, com.ibm.mq.explorer.ui.extensions.TreeNode)
+	 */
+	public int compare(TreeNode arg0, TreeNode arg1) {
+		return 0;
+	}
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see
-     * com.ibm.mq.explorer.ui.extensions.TreeNode#appendToContextMenu(org.eclipse
-     * .swt.widgets.Shell, org.eclipse.jface.action.IMenuManager)
-     */
-    public void appendToContextMenu(Shell arg0, IMenuManager arg1) {
-        arg1.add(new GroupMarker(IWorkbenchActionConstants.FIND_EXT));
-    }
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * com.ibm.mq.explorer.ui.extensions.TreeNode#isContextMenuFromUiObject()
+	 */
+	public boolean isContextMenuFromUiObject() {
+		return false;
+	}
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see
-     * com.ibm.mq.explorer.ui.extensions.TreeNode#isAddChildrenWhenExpanded()
-     */
-    public boolean isAddChildrenWhenExpanded() {
-        return true;
-    }
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.ibm.mq.explorer.ui.extensions.TreeNode#appendToContextMenu(org.
+	 * eclipse .swt.widgets.Shell, org.eclipse.jface.action.IMenuManager)
+	 */
+	public void appendToContextMenu(Shell arg0, IMenuManager arg1) {
+		arg1.add(new GroupMarker(IWorkbenchActionConstants.FIND_EXT));
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * com.ibm.mq.explorer.ui.extensions.TreeNode#isAddChildrenWhenExpanded()
+	 */
+	public boolean isAddChildrenWhenExpanded() {
+		return true;
+	}
 
 }

@@ -7,6 +7,8 @@
  */
 package com.ibm.mq.explorer.ms0s.mqscscripts.tree;
 
+import java.net.URL;
+
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.IStatus;
@@ -14,6 +16,7 @@ import org.eclipse.core.runtime.Status;
 import org.eclipse.jface.action.GroupMarker;
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.resource.ImageDescriptor;
+import org.eclipse.jface.resource.ImageRegistry;
 import org.eclipse.jface.viewers.DoubleClickEvent;
 import org.eclipse.jface.viewers.IDoubleClickListener;
 import org.eclipse.jface.viewers.ISelection;
@@ -32,6 +35,7 @@ import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.navigator.CommonNavigator;
 import org.eclipse.ui.part.FileInPlaceEditorInput;
+import org.osgi.framework.Bundle;
 
 import com.ibm.mq.explorer.ms0s.mqscscripts.MQSCScriptsPlugin;
 import com.ibm.mq.explorer.ui.Common;
@@ -49,6 +53,8 @@ public class MQSCScriptsTreeNodeFile extends TreeNode {
     String fileName = null;
 
     MQExtObject myObj;
+
+	private ImageRegistry iconRegistry;
 
     private static ImageDescriptor myImageDescr = null;
 
@@ -130,11 +136,54 @@ public class MQSCScriptsTreeNodeFile extends TreeNode {
      * @see com.ibm.mq.explorer.ui.extensions.TreeNode#getIcon()
      */
     public Image getIcon() {
-        if (myImageDescr == null) {
-            myImageDescr = ImageDescriptor.createFromURL(MQSCScriptsPlugin
-                    .getDefault().getBundle().getEntry("/mqsc.gif"));
-        }
-        return myImageDescr.createImage();
+    	String iconName = "mqsc";
+    	try {
+    	if (iconRegistry == null)
+    	  iconRegistry = new ImageRegistry();
+    	
+    	if (iconRegistry != null) {
+    		Image icon = iconRegistry.get(iconName);
+    		if (icon == null ) {
+    			ImageDescriptor descriptor = createDescriptor(iconName);
+    			iconRegistry.put(iconName, descriptor);
+    			icon = iconRegistry.get(iconName);
+    		}
+    		return icon;
+    	} else {
+    		return null;
+    	}
+    	} catch (Exception e) {
+    		return null;
+    	}		
+     
+    }
+    
+    private ImageDescriptor createDescriptor(String iconName) {
+    	 URL url = null;
+         ImageDescriptor descriptor = null;
+         // Get the full filename for the icon
+         String filename = iconName  + ".gif"; //$NON-NLS-1$
+         
+         // Get the URL representing this file
+         try {
+             Bundle bundle = MQSCScriptsPlugin.getDefault().getBundle();
+             url = bundle.getEntry(filename);
+             if (url == null) {
+            	 filename = "icons/" + iconName + ".gif";
+            	 url = bundle.getEntry(filename);
+             }		 
+             if (url == null) {
+            	 filename = "icons/obj16/" + iconName + ".gif";
+            	 url = bundle.getEntry(filename);
+             }		 
+             descriptor = ImageDescriptor.createFromURL(url);
+         } catch (Exception e) {
+             String curDir = System.getProperty("user.dir"); //$NON-NLS-1$      
+             descriptor = ImageDescriptor.createFromFile(null, curDir + "/" + filename); //$NON-NLS-1$
+         }
+         // Create the image descriptor from the file
+
+         return descriptor;
     }
 
     /*

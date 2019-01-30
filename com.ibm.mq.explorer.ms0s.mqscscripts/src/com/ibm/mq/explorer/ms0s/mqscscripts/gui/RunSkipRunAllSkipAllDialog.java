@@ -69,11 +69,11 @@ public class RunSkipRunAllSkipAllDialog extends Dialog {
 
 	private Button createButton(Composite parent, int id, String label,
 			boolean defaultButton) {
-		Button button = new Button(parent, SWT.PUSH);
-		button.setText(label);
-		button.setData(new Integer(id));
+		Button localButton = new Button(parent, SWT.PUSH);
+		localButton.setText(label);
+		localButton.setData(new Integer(id));
 //		button.setLayoutData(data);
-		button.addSelectionListener(new SelectionAdapter() {
+		localButton.addSelectionListener(new SelectionAdapter() {
 			public void widgetSelected(SelectionEvent event) {
 				buttonPressed(((Integer) event.widget.getData()).intValue());
 			}
@@ -81,10 +81,10 @@ public class RunSkipRunAllSkipAllDialog extends Dialog {
 		if (defaultButton) {
 			Shell shell = parent.getShell();
 			if (shell != null) {
-				shell.setDefaultButton(button);
+				shell.setDefaultButton(localButton);
 			}
 		}
-		return button;
+		return localButton;
 	}
 	
     private void createContents(final Shell shell) {

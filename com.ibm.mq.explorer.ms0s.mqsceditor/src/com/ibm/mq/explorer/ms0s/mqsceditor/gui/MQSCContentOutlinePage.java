@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2007,2014 IBM Corporation and other Contributors.
+ * Copyright (c) 2007,2019 IBM Corporation and other Contributors.
  *
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -365,54 +365,7 @@ public class MQSCContentOutlinePage extends ContentOutlinePage {
 			return new Object[0];
 		}
 
-		/*
-		 * Obsoleted in v1.1 by being replaced with Event handling.
-		 */
-		/* <p> Maybe this should be renabled instead of our event handling. */
-		/*
-		 * protected void parse(IDocument document) { IToken myToken; try { if
-		 * (document instanceof IDocumentExtension3) { IDocumentExtension3
-		 * extension3 = (IDocumentExtension3) document; ITypedRegion[]
-		 * partitions = extension3 .getDocumentPartitioner(
-		 * MQSCEditorPlugin.MQSC_PARTITIONING) .computePartitioning(0,
-		 * document.getLength()); for (int i = 0; i < partitions.length; i++) {
-		 * int offset = partitions[i].getOffset(); int length =
-		 * partitions[i].getLength(); String partType = partitions[i].getType();
-		 * if (!partType .equalsIgnoreCase(IDocument.DEFAULT_CONTENT_TYPE) &&
-		 * !partType .equalsIgnoreCase(MQSCPartitionScanner.MQSC_COMMENT)) {
-		 * Position p = new Position(offset, length); String objType = "";
-		 * String objName = ""; String cmdName = ""; BufferedRuleBasedScanner
-		 * scanner = ((MQSCCodeScanner) (MQSCEditorPlugin
-		 * .getDefault().getMQSCCodeScanner()))
-		 * .getScannerForPartition(partitions[i]); scanner.setRange(document,
-		 * offset, length); myToken = (IToken) scanner.nextToken();
-		 * MQSCCommandEvent myEvent = ((MQSCToken) myToken) .getEvent(); if
-		 * (myEvent != null && myEvent.getType() ==
-		 * MQSCCommandEvent.COMMAND_WORD_EVENT) { cmdName =
-		 * myEvent.getValue().toUpperCase() .trim(); } boolean halt = false;
-		 * while ((myToken != null) && (!myToken.isEOF()) && !halt) { myToken =
-		 * (IToken) scanner.nextToken(); if (myToken instanceof MQSCToken) {
-		 * myEvent = ((MQSCToken) myToken).getEvent(); if (myEvent != null) {
-		 * switch (myEvent.getType()) { case
-		 * MQSCCommandEvent.OBJECT_VALUE_EVENT: objType = myEvent.getValue()
-		 * .toUpperCase().trim(); break; case
-		 * MQSCCommandEvent.OBJECT_NAME_EVENT: objName =
-		 * myEvent.getValue().trim(); break; case
-		 * MQSCCommandEvent.TERMINAL_EVENT: halt = true; break; case
-		 * MQSCCommandEvent.INVALID_EVENT: halt = true; break; default: break; }
-		 * } } } document.addPosition(SEGMENTS, p); fContent.add(new
-		 * Segment(MessageFormat .format(MQSCEditorMessages
-		 * .getString("OutlinePage.segment"), new Object[] { cmdName, objType,
-		 * objName, }), p, myEvent)); } } } } catch
-		 * (BadPositionCategoryException x) { if
-		 * (MQSCEditorPlugin.getDefault().isDebugging()) {
-		 * MQSCEditorPlugin.getDefault().getLog().log( new Status(IStatus.ERROR,
-		 * MQSCEditor.PLUGIN_ID, 0, "Bad Position Category Exception", x)); } }
-		 * catch (BadLocationException x) { if
-		 * (MQSCEditorPlugin.getDefault().isDebugging()) {
-		 * MQSCEditorPlugin.getDefault().getLog().log( new Status(IStatus.ERROR,
-		 * MQSCEditor.PLUGIN_ID, 0, "Bad Location Exception", x)); } } }
-		 */
+		
 	}
 
 	public MQSCContentOutlinePage(IDocumentProvider provider, ITextEditor editor) {

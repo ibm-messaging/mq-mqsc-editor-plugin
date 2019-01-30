@@ -13,8 +13,7 @@ import com.ibm.mq.explorer.ui.extensions.IExplorerNotify;
  * @author Jeff Lowrey
  */
 /*
- * <p>
- * This is the base required class to process MQExplorer object change
+ * <p> This is the base required class to process MQExplorer object change
  * notifications. All of my initial attempts to implement any custom handling of
  * these notifications were unnecessary. And fairly buggy. <p>
  * 
@@ -22,7 +21,14 @@ import com.ibm.mq.explorer.ui.extensions.IExplorerNotify;
  */
 public class MQSCExplorerNotify implements IExplorerNotify {
 
+	public MQSCExplorerNotify() {
+		super();
+		U.debug("MQSCExplorerNotify (constructor)"); //$NON-NLS-1$
+	}
+
 	public void explorerInitialised() {
+		U.debug("MQSCExplorerNotify explorerInitialised()"); //$NON-NLS-1$
+		MQSCScriptsPlugin.beginPlugin();
 	}
 
 	/*
@@ -38,8 +44,8 @@ public class MQSCExplorerNotify implements IExplorerNotify {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see
-	 * com.ibm.mq.explorer.ui.extensions.IExplorerNotify#isPreventRemoveQueueManager
+	 * @see com.ibm.mq.explorer.ui.extensions.IExplorerNotify#
+	 * isPreventRemoveQueueManager
 	 * (com.ibm.mq.explorer.ui.extensions.ExplorerNotifyEvent)
 	 */
 	public boolean isPreventRemoveQueueManager(ExplorerNotifyEvent arg0) {
@@ -49,8 +55,8 @@ public class MQSCExplorerNotify implements IExplorerNotify {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see
-	 * com.ibm.mq.explorer.ui.extensions.IExplorerNotify#isPreventDeleteQueueManager
+	 * @see com.ibm.mq.explorer.ui.extensions.IExplorerNotify#
+	 * isPreventDeleteQueueManager
 	 * (com.ibm.mq.explorer.ui.extensions.ExplorerNotifyEvent)
 	 */
 	public boolean isPreventDeleteQueueManager(ExplorerNotifyEvent arg0) {
@@ -60,8 +66,8 @@ public class MQSCExplorerNotify implements IExplorerNotify {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see
-	 * com.ibm.mq.explorer.ui.extensions.IExplorerNotify#isPreventStopQueueManager
+	 * @see com.ibm.mq.explorer.ui.extensions.IExplorerNotify#
+	 * isPreventStopQueueManager
 	 * (com.ibm.mq.explorer.ui.extensions.ExplorerNotifyEvent)
 	 */
 	public boolean isPreventStopQueueManager(ExplorerNotifyEvent arg0) {
@@ -156,6 +162,10 @@ public class MQSCExplorerNotify implements IExplorerNotify {
 	 * .mq.explorer.ui.extensions.ExplorerNotifyEvent)
 	 */
 	public void pluginEnabled(ExplorerNotifyEvent arg0) {
+		//U.debug("MQSCExplorerNotify pluginEnabled()"); //$NON-NLS-1$
+		if (arg0.getId().equals(MQSCScriptsPlugin.PLUGIN_ID)) {
+			MQSCScriptsPlugin.enable();
+		}
 	}
 
 	/*
@@ -166,13 +176,17 @@ public class MQSCExplorerNotify implements IExplorerNotify {
 	 * ibm.mq.explorer.ui.extensions.ExplorerNotifyEvent)
 	 */
 	public void pluginDisabled(ExplorerNotifyEvent arg0) {
+		U.debug("MQSCExplorerNotify pluginDisabled()"); //$NON-NLS-1$
+		if (arg0.getId().equals(MQSCScriptsPlugin.PLUGIN_ID)) {
+			MQSCScriptsPlugin.disable();
+		}
 	}
 
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see
-	 * com.ibm.mq.explorer.ui.extensions.IExplorerNotify#explorerPreferenceChanged
+	 * @see com.ibm.mq.explorer.ui.extensions.IExplorerNotify#
+	 * explorerPreferenceChanged
 	 * (com.ibm.mq.explorer.ui.extensions.ExplorerNotifyEvent)
 	 */
 	public void explorerPreferenceChanged(ExplorerNotifyEvent arg0) {
@@ -184,6 +198,8 @@ public class MQSCExplorerNotify implements IExplorerNotify {
 	 * @see com.ibm.mq.explorer.ui.extensions.IExplorerNotify#explorerClosing()
 	 */
 	public void explorerClosing() {
+		U.debug("MQSCExplorerNotify explorerClosing()"); //$NON-NLS-1$
+		MQSCScriptsPlugin.endPlugin();
 	}
 
 }

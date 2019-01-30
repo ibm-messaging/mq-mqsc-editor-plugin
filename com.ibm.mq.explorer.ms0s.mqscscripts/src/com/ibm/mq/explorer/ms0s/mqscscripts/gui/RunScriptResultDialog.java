@@ -137,15 +137,15 @@ public class RunScriptResultDialog extends Dialog {
             ti.setText(qmgrName);
             Object resultList = fInput.get(qmgrName);
             if (resultList instanceof Object[]) {
-                Object[] results = (Object[]) resultList;
-                for (i = 0; i < results.length; i++) {
-                    if (results[i] == null)
+                Object[] _results = (Object[]) resultList;
+                for (i = 0; i < _results.length; i++) {
+                    if (_results[i] == null)
                         continue;
-                    sb.append(((String) results[i]).trim() + "\r\n");
+                    sb.append(((String) _results[i]).trim() + "\r\n");
                 }
             } else if (resultList instanceof Collection) {
-                List results = (List) resultList;
-                for (Iterator iter = results.iterator(); iter.hasNext();) {
+                List _results = (List) resultList;
+                for (Iterator iter = _results.iterator(); iter.hasNext();) {
                     String result = (String) iter.next();
                     if (result == null)
                         continue;

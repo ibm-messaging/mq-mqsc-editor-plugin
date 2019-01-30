@@ -11,10 +11,13 @@
  *******************************************************************************/
 package com.ibm.mq.explorer.ms0s.mqsceditor;
 
-
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
-import org.eclipse.jface.text.*;
+import org.eclipse.jface.text.BadLocationException;
+import org.eclipse.jface.text.IRegion;
+import org.eclipse.jface.text.ITextHover;
+import org.eclipse.jface.text.ITextViewer;
+import org.eclipse.jface.text.Region;
 import org.eclipse.swt.graphics.Point;
 /**
  * @author Jeff Lowrey
@@ -22,11 +25,17 @@ import org.eclipse.swt.graphics.Point;
 
 /**
  * <p>
- * This enables hover text.   
+ * This enables hover text.
+ * 
+ * The getHoverInfo method is now deprecated. At some point, this needs to 
+ * be reworked to the ITextHoverExtension2 interface. But we'll suppress the
+ * warning temporarily and just put a TODO in here
  **/
-
+@SuppressWarnings( "deprecation" )
 public class MQSCTextHover implements ITextHover {
 
+  // TODO: Move to a non-deprecated API
+  
 	/* (non-Javadoc)
 	 * Method declared on ITextHover
 	 */

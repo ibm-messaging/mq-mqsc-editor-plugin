@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2007,2014 IBM Corporation and other Contributors.
+ * Copyright (c) 2007,2019 IBM Corporation and other Contributors.
  *
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -16,6 +16,7 @@ import java.util.ResourceBundle;
 
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
+
 /**
  * @author Jeff Lowrey
  */
@@ -25,28 +26,38 @@ import org.eclipse.core.runtime.Status;
  * This loads any messages from the resource bundle for the plugin.
  **/
 
-
 public class MQSCEditorMessages {
 
-	private static final String RESOURCE_BUNDLE= "com.ibm.mq.explorer.ms0s.mqsceditor.MQSCEditorMessages";
+  private static final String RESOURCE_BUNDLE = "com.ibm.mq.explorer.ms0s.mqsceditor.MQSCEditorMessages";
 
-	private static ResourceBundle fgResourceBundle= ResourceBundle.getBundle(RESOURCE_BUNDLE);
+  private static ResourceBundle fgResourceBundle;
+  private static boolean fgResourceBundleUnknown = true;
 
-	private MQSCEditorMessages() {
-	}
+  private MQSCEditorMessages() {
+  }
 
-	public static String getString(String key) {
-		try {
-			return fgResourceBundle.getString(key);
-		} catch (MissingResourceException e) {
-	        if (MQSCEditorPlugin.getDefault().isDebugging()) {
-	            MQSCEditorPlugin.getDefault().getLog().log( new Status(IStatus.ERROR,MQSCEditor.PLUGIN_ID,0, "Missing Resource Exception" + " !" + key + "! ", e)); 
-	        }
-			return "!" + key + "!";
-		}
-	}
-	
-	public static ResourceBundle getResourceBundle() {
-		return fgResourceBundle;
-	}
+  public static String getString(String key) {
+    try {
+      return fgResourceBundle.getString(key);
+    }
+    catch (MissingResourceException | NullPointerException e) {
+      if (MQSCEditorPlugin.getDefault().isDebugging()) {
+        MQSCEditorPlugin.getDefault().getLog().log(new Status(IStatus.ERROR, MQSCEditor.PLUGIN_ID, 0, "Missing Resource Exception" + " !" + key + "! ", e));
+      }
+      return "!" + key + "!";
+    }
+  }
+
+  public static ResourceBundle getResourceBundle() {
+    if (fgResourceBundleUnknown) {
+      try {
+        fgResourceBundle = ResourceBundle.getBundle(RESOURCE_BUNDLE); // $NON-NLS-1$
+      }
+      catch (MissingResourceException x) {
+        fgResourceBundle = null;
+      }
+      fgResourceBundleUnknown = false;
+    }
+    return fgResourceBundle;
+  }
 }

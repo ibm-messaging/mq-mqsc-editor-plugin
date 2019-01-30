@@ -358,7 +358,8 @@ public class RunScriptAction implements IActionDelegate, IMQSCResultAccumulator 
         
     }
     @SuppressWarnings({"rawtypes","unchecked"})
-    public void addResult(String resultSetName, Object result) {
+    public void addResult(String _resultSetName, Object result) {
+    	String resultSetName = _resultSetName;
         if (resultSetName == null)
             resultSetName = SINGLE_RESULT;
         resultList = (ArrayList) resultSets.get(resultSetName);
@@ -382,7 +383,8 @@ public class RunScriptAction implements IActionDelegate, IMQSCResultAccumulator 
     }
 
     @SuppressWarnings({"rawtypes","unchecked"})
-    public void clearResultSet(String resultSetName) {
+    public void clearResultSet(String _resultSetName) {
+    	String resultSetName = _resultSetName;
         if (resultSetName == null)
             resultSetName = SINGLE_RESULT;
         if (resultSets == null) {
@@ -397,7 +399,8 @@ public class RunScriptAction implements IActionDelegate, IMQSCResultAccumulator 
     }
 
     @SuppressWarnings({"rawtypes","unchecked"})
-    public void newResultSet(String resultSetName) {
+    public void newResultSet(String _resultSetName) {
+    	String resultSetName = _resultSetName;
         if (resultSetName == null)
             resultSetName = SINGLE_RESULT;
         if (resultSets == null) {

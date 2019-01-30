@@ -157,10 +157,10 @@ public class NewScriptFileWizard extends Wizard implements INewWizard {
         monitor.setTaskName("Opening file for editing...");
         getShell().getDisplay().asyncExec(new Runnable() {
             public void run() {
-                IWorkbenchPage page = PlatformUI.getWorkbench()
+                IWorkbenchPage wbPage = PlatformUI.getWorkbench()
                         .getActiveWorkbenchWindow().getActivePage();
                 try {
-                    IDE.openEditor(page, file, true);
+                    IDE.openEditor(wbPage, file, true);
                 } catch (PartInitException e) {
                 }
             }
@@ -189,8 +189,8 @@ public class NewScriptFileWizard extends Wizard implements INewWizard {
      * 
      * @see IWorkbenchWizard#init(IWorkbench, IStructuredSelection)
      */
-    public void init(IWorkbench workbench, IStructuredSelection selection) {
-        this.selection = selection;
+    public void init(IWorkbench workbench, IStructuredSelection _selection) {
+        this.selection = _selection;
 
     }
 }

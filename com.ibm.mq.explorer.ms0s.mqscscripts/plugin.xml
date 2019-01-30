@@ -1,16 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?eclipse version="3.0"?>
 <plugin>
-
      <extension
          point="com.ibm.mq.explorer.ui.registerplugin">
       <pluginDetails
             pluginId="com.ibm.mq.explorer.ms0s.mqscscripts"
-            name="Support Pack MS0S"
+            name="MS0S: MQSC Scripts"
             enabledByDefault="true"
             description="MQSC Scripts Plug-in"
             class="com.ibm.mq.explorer.ms0s.mqscscripts.MQSCExplorerNotify"
-            vendor="*IBM Internal">
+            vendor="IBM">
       </pluginDetails>
    </extension>
    <extension
@@ -193,7 +192,7 @@
       <page
             class="com.ibm.mq.explorer.ms0s.mqscscripts.preferences.MQSCEditorPreferences"
             id="com.ibm.mq.explorer.ms0s.mqscscripts.preferences.MQSCEditorPreferences"
-            name="WebSphere MQ MQSC Script Editor">
+            name="IBM MQ MQSC Script Editor">
       </page>
    </extension>
    <extension

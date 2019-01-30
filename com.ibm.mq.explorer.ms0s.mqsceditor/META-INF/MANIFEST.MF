@@ -1,7 +1,7 @@
 Manifest-Version: 1.0
-Bundle-Name: ms0s MQSC Editor Plug-in
+Bundle-Name: MS0S: MQSC Editor Plug-in
 Bundle-SymbolicName: com.ibm.mq.explorer.ms0s.mqsceditor;singleton:=true
-Bundle-Version: 1.7.0.0
+Bundle-Version: 9.0.0.0
 Bundle-ClassPath: mqsceditor.jar
 Bundle-Activator: com.ibm.mq.explorer.ms0s.mqsceditor.MQSCEditorPlugin
 Bundle-Vendor: IBM
@@ -12,7 +12,9 @@ Require-Bundle: org.eclipse.jface.text,
  org.eclipse.ui.ide,
  org.eclipse.ui,
  org.eclipse.core.resources,
- org.eclipse.core.runtime.compatibility
+ org.eclipse.equinox.registry,
+ com.ibm.mq.runtime,
+ com.ibm.mq.commonservices
 Bundle-ActivationPolicy: lazy
 Plugin-Class: com.ibm.mq.explorer.ms0s.mqsceditor.MQSCEditorPlugin
 Export-Package: com.ibm.mq.explorer.ms0s.mqsceditor,
@@ -24,4 +26,5 @@ Export-Package: com.ibm.mq.explorer.ms0s.mqsceditor,
  com.ibm.mq.explorer.ms0s.mqsceditor.rules,
  com.ibm.mq.explorer.ms0s.mqsceditor.util
 Bundle-ManifestVersion: 2
-Bundle-RequiredExecutionEnvironment: JavaSE-1.7
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Automatic-Module-Name: com.ibm.mq.explorer.ms0s.mqsceditor

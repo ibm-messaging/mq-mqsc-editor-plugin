@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2007,2014 IBM Corporation and other Contributors.
+ * Copyright (c) 2007,2019 IBM Corporation and other Contributors.
  *
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -32,80 +32,82 @@ import com.ibm.mq.explorer.ms0s.mqsceditor.util.MQSCColorProvider;
 
 public class MQSCEditorPlugin extends AbstractUIPlugin {
 
-    public final static String MQSC_PARTITIONING = "__mqsc_partitioning";
+  public final static String MQSC_PARTITIONING = "__mqsc_partitioning";
 
-    private static MQSCEditorPlugin fgInstance;
+  private static MQSCEditorPlugin fgInstance;
+  private static MQSCPartitionScanner fPartitionScanner;
+  private static MQSCColorProvider fColorProvider;
+  private static MQSCCommandEventNotifier fNotifier;
+  
+  private MQSCCodeScanner fCodeScanner;
+  private MQSCDocumentModel fDocModel;
 
-    private static MQSCPartitionScanner fPartitionScanner;
+  static boolean seenGetDefault = false;
 
-    private static MQSCColorProvider fColorProvider;
+  /**
+   * Creates a new plugin instance.
+   */
+  public MQSCEditorPlugin() {
+    super();
+    U.debug("MQSCEditorPlugin (constructor)");
+    fgInstance = this;
+  }
 
-    private static MQSCCommandEventNotifier fNotifier;
-
-    private MQSCCodeScanner fCodeScanner;
-    
-    private MQSCDocumentModel fDocModel;
-
-    /**
-     * Creates a new plugin instance.
-     */
-    public MQSCEditorPlugin() {
-        super();
-        fgInstance = this;
+  /**
+   * Returns the default plugin instance.
+   * 
+   * @return the default plugin instance
+   */
+  public static MQSCEditorPlugin getDefault() {
+    if (!seenGetDefault) {
+      U.debug("MQSCEditorPlugin (getDefault)");
+      seenGetDefault = true;
     }
+    return fgInstance;
+  }
 
-    /**
-     * Returns the default plugin instance.
-     * 
-     * @return the default plugin instance
-     */
-    public static MQSCEditorPlugin getDefault() {
-        return fgInstance;
+  /**
+   * Return a scanner for creating MQSC partitions.
+   */
+  public MQSCPartitionScanner getMQSCPartitionScanner() {
+    if (fPartitionScanner == null) {
+      fPartitionScanner = new MQSCPartitionScanner();
     }
+    return fPartitionScanner;
+  }
 
-    /**
-     * Return a scanner for creating MQSC partitions.
-     */
-    public MQSCPartitionScanner getMQSCPartitionScanner() {
-        if (fPartitionScanner == null) {
-            fPartitionScanner = new MQSCPartitionScanner();
-        }
-        return fPartitionScanner;
-    }
+  /**
+   * Returns the singleton scanner.
+   */
+  public RuleBasedScanner getMQSCCodeScanner() {
+    if (fCodeScanner == null)
+      fCodeScanner = new MQSCCodeScanner(getMQSCColorProvider());
+    return fCodeScanner;
+  }
 
-    /**
-     * Returns the singleton scanner.
-     */
-    public RuleBasedScanner getMQSCCodeScanner() {
-        if (fCodeScanner == null)
-            fCodeScanner = new MQSCCodeScanner(getMQSCColorProvider());
-        return fCodeScanner;
-    }
+  /**
+   * Returns the singleton color provider.
+   */
+  public MQSCColorProvider getMQSCColorProvider() {
+    if (fColorProvider == null)
+      fColorProvider = new MQSCColorProvider();
+    return fColorProvider;
+  }
 
-    /**
-     * Returns the singleton color provider.
-     */
-    public MQSCColorProvider getMQSCColorProvider() {
-        if (fColorProvider == null)
-            fColorProvider = new MQSCColorProvider();
-        return fColorProvider;
-    }
+  public MQSCLanguageConfigurator getMQSCLanguageConfiguration() {
+    return MQSCLanguageConfigurator.getLanguageConfiguration();
+  }
 
-    public MQSCLanguageConfigurator getMQSCLanguageConfiguration() {
-        return MQSCLanguageConfigurator.getLanguageConfiguration();
-    }
+  public MQSCCommandEventNotifier getMQSCCommandEventNotifier() {
+    if (fNotifier == null)
+      fNotifier = new MQSCCommandEventNotifier();
+    return fNotifier;
+  }
 
-    public MQSCCommandEventNotifier getMQSCCommandEventNotifier() {
-        if (fNotifier == null)
-            fNotifier = new MQSCCommandEventNotifier();
-        return fNotifier;
+  public MQSCDocumentModel getMQSCDocumentModel() {
+    if (fDocModel == null) {
+      fDocModel = new MQSCDocumentModel();
     }
-    
-    public MQSCDocumentModel getMQSCDocumentModel()	{
-        if (fDocModel == null) {
-            fDocModel = new MQSCDocumentModel();
-        }
-        return fDocModel;
-    }
-
+    return fDocModel;
+  }
 }
