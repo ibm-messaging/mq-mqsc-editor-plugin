@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="build" default="all">
+
+	<property name="BuildId" value="${eclipse.buildId}" />
+	
+	<property name="projectName" value="MS0S-MQSC-SCRIPTS" />
+	<property name="pluginId" value="com.ibm.mq.explorer.ms0s.mqscscripts" />
+	<property name="outputJar" value="mqscscripts.jar"/>
+	
+	<property file="${basedir}\..\com.ibm.mq.explorer.ms0s.MQSCEditorBuild\build_properties.txt"/>	
+	
+	<property name="localPluginVersion" value="${defaultPluginVersion}"/>
+	<property name="buildPluginPath" 
+		      value="${buildTmpZipRoot}\\plugins\\${pluginId}_${localPluginVersion}"/>
+	<property name="editorHome"
+	           value= "${basedir}\..\com.ibm.mq.explorer.ms0s.mqsceditor"/>
+	
+	<include file="../com.ibm.mq.explorer.ms0s.MQSCEditorBuild/build.inc.xml"/>
+	
+	<target name="clean">
+		<delete failonerror="false">
+			<fileset dir="${buildRoot}">
+				<include name="*"/>
+			</fileset>
+		</delete>
+		<delete dir="${buildRoot}\classes" />
+		<delete dir="${buildShip}" />
+		<delete dir="${buildTmp}" />
+		
+		<mkdir dir="${buildRoot}" />
+		<mkdir dir="${buildShip}" />
+		<mkdir dir="${buildTmp}" />
+		<mkdir dir="${buildClassesPath}" />
+		<mkdir dir="${buildPluginPath}" />
+		
+		<tstamp/>
+		<property name="buildTime" value="${DSTAMP} ${TSTAMP}" />
+	</target>
+
+	<path id="classpath.refid">
+		<fileset dir="${eclipsePluginsHome}">
+			<include name="com.ibm.mq.*\*.jar" />
+			<include name="com.ibm.mq.*.jar" />
+				
+			<include name="org.*\*.jar" />
+			<include name="org.eclipse.*.jar" />
+		</fileset>
+		<fileset dir="${mqPluginsHome}">
+					<include name="com.ibm.mq.*\*.jar" />
+					<include name="com.ibm.mq.*.jar" />			
+		</fileset>
+		<fileset dir="${editorHome}">
+				<include name="**\*.jar" />
+		</fileset>
+	</path>
+
+	<pathconvert targetos="windows" property="classpath" refid="classpath.refid">
+	</pathconvert>
+
+
+	<target name="classes" depends="clean">		
+		<my.javac srcdir="${basedir}\src" destdir="${buildClassesPath}" >
+			<classpath refid="classpath.refid" />
+		</my.javac>
+	</target>
+
+	<target name="jar" depends="classes">
+		<jar jarfile="${buildPluginPath}\${outputJar}">
+			<fileset dir="${buildClassesPath}">
+			</fileset>
+		</jar>
+	</target>
+
+	<target name="otherContents" >
+		<copy todir="${buildPluginPath}\icons">
+							<fileset dir="${basedir}\icons">
+							</fileset>
+		</copy>
+		<copy todir="${buildPluginPath}\META-INF" file="${basedir}\META-INF\MANIFEST.MF" />
+		<copy todir="${buildPluginPath}" file="${basedir}\plugin.xml" />
+	</target>
+
+	<target name="zipfile" depends="jar,otherContents">
+		<zip destfile="${buildShip}\${projectName}.zip" basedir="${buildTmpZipRoot}">
+		</zip>
+	</target>
+	
+	<target name="all" depends="zipfile">
+		<echo message="Completed ${projectName}.zip" />
+	</target>
+
+</project>

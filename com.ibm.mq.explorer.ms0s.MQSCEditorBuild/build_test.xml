@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="build" default="all">
+
+	<property name="BuildId" value="${eclipse.buildId}" />
+	<property name="projectName" value="MS0S" />
+	<property name="testDir" value="c:\\program files\\ibm\\mq\\MQExplorer\\eclipse\\dropins\\${projectName}"/>
+
+	<property file="${basedir}\..\com.ibm.mq.explorer.ms0s.MQSCEditorBuild\build_properties.txt"/>	
+
+	<include file="../com.ibm.mq.explorer.ms0s.MQSCEditorBuild/build.inc.xml"/>
+	
+	<target name="clean">
+		<delete verbose="false" failonerror="false" includeemptydirs="true">
+			<fileset dir="${testDir}">
+				<include name="**/*" />
+			</fileset>
+		</delete>
+	</target>
+
+	
+	<target name="buildMain" depends="clean">
+		
+		<ant dir="${basedir}" inheritall="false" target="all" />
+		<unzip src="${finalShipDir}\${projectName}.zip" 
+			   dest="${testDir}" overwrite="yes"/>
+
+	</target>
+
+
+	<target name="all" depends="clean,buildMain">
+		<echo message="Completed build of ${projectName}.zip" />
+	</target>
+
+</project>

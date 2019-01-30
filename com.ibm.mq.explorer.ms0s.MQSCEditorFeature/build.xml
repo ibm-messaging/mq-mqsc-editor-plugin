@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="build" default="all">
+
+	<property name="BuildId" value="${eclipse.buildId}" />
+	<property name="projectName" value="MS0S-FEATURE" />
+	
+	<property file="${basedir}\..\com.ibm.mq.explorer.ms0s.MQSCEditorBuild\build_properties.txt"/>	
+	
+	<property name="featureId" value="com.ibm.mq.explorer.ms0s.MQSCEditorFeature" />
+	<property name="featureVersion" value="${defaultPluginVersion}" />
+
+	<property name="srcPath" value="${basedir}\src" />
+
+	<property name="buildFeaturePath" 
+		     value="${buildTmpZipRoot}\features\${featureId}_${featureVersion}" />
+
+	<include file="../com.ibm.mq.explorer.ms0s.MQSCEditorBuild/build.inc.xml"/>
+
+	<target name="clean">
+		<delete failonerror="false">
+			<fileset dir="${buildRoot}">
+				<include name="*" />
+			</fileset>
+		</delete>
+		<delete dir="${buildShip}" />
+		<delete dir="${buildTmp}" />
+
+		<mkdir dir="${buildRoot}" />
+		<mkdir dir="${buildShip}" />
+		<mkdir dir="${buildTmp}" />
+		<mkdir dir="${buildFeaturePath}" />
+
+		<tstamp />
+		<property name="buildTime" value="${DSTAMP} ${TSTAMP}" />
+	</target>
+
+	<target name="otherContents">
+		<copy todir="${buildFeaturePath}" file="${basedir}\feature.xml" />
+	</target>
+	
+	<target name="zipfile" depends="clean,otherContents">
+		<zip destfile="${buildShip}\${projectName}.zip" basedir="${buildTmpZipRoot}" />
+	</target>
+
+	<target name="all" depends="zipfile">
+		<echo message="Completed ${projectName}.zip" />
+	</target>
+
+</project>

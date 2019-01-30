@@ -1,0 +1,16 @@
+<project name="included">	
+	
+	<echo message="basedir = ${basedir}" />
+	
+	 <presetdef name="my.javac">
+	    <javac includeantruntime="false" 
+	    	   executable="${javac}"
+	    	   verbose="false" 
+	    	   fork="no" 
+			   optimize="true" 
+			   debug="false" >
+	       <compilerarg value="-Xlint:unchecked,deprecation"/>
+	    </javac>
+	</presetdef>
+
+</project>

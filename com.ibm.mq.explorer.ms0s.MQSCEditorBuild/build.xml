@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="build" default="all">
+
+	<property name="BuildId" value="${eclipse.buildId}" />
+	<property name="projectName" value="MS0S" />
+
+	<property file="${basedir}\..\com.ibm.mq.explorer.ms0s.MQSCEditorBuild\build_properties.txt"/>	
+
+	<include file="../com.ibm.mq.explorer.ms0s.MQSCEditorBuild/build.inc.xml"/>
+	
+	<target name="clean">
+		<delete verbose="false" failonerror="false" includeemptydirs="true">
+			<fileset dir="${buildRoot}">
+				<include name="**/*" />
+			</fileset>
+		</delete>
+
+		<delete dir="${buildShip}" />
+		<delete dir="${buildTmp}" />
+		<delete dir="${finalShipDir}" />
+
+		<mkdir dir="${buildRoot}" />
+		<mkdir dir="${buildShip}" />
+		<mkdir dir="${buildTmp}" />
+
+		<tstamp />
+		<property name="buildTime" value="${DSTAMP} ${TSTAMP}" />
+	</target>
+
+	<property name="p0" value="${basedir}/../com.ibm.mq.explorer.ms0s.mqsceditor" />
+	<property name="p1" value="${basedir}/../com.ibm.mq.explorer.ms0s.mqscscripts" />
+		
+	
+	<property name="f0" value="${basedir}/../com.ibm.mq.explorer.ms0s.MQSCEditorFeature" />
+
+	<target name="gather.all.plugins.unzipped" depends="clean">
+		<!-- Note: This set of plugins has to match what is defined in the feature.xml file. -->
+		<ant dir="${p0}" inheritall="false" target="zipfile" />
+		<ant dir="${p1}" inheritall="false" target="zipfile" />
+		
+		<mkdir dir="${buildTmpZipRoot}/eclipse" />
+		<copy todir="${buildTmpZipRoot}/eclipse">
+			<fileset dir="${p0}/bin/tmp/p" />
+			<fileset dir="${p1}/bin/tmp/p" />
+		</copy>
+
+	</target>
+
+	<target name="gather.all.features.unzipped" depends="clean">
+		<ant dir="${f0}" inheritall="false" target="zipfile" />
+		<copy todir="${buildTmpZipRoot}/eclipse">
+			<fileset dir="${f0}/bin/tmp/p"/>
+		</copy>
+	</target>
+
+	<target name="gather.all.updateControls" depends="clean">
+		<copy todir="${buildTmpZipRoot}">
+			<fileset dir="${basedir}">
+				<include name="${pdfDoc}" />
+				<include name="eclipse/.eclipseextension" />
+			</fileset>
+			
+		</copy>
+	</target>
+
+	<target name="allContents.unzipped" 
+			depends="gather.all.features.unzipped,
+			         gather.all.plugins.unzipped,
+			         gather.all.updateControls">
+	</target>
+
+
+	<target name="zipfile" depends="allContents.unzipped">
+		<!-- This is the file we actually ship. -->
+		<zip destfile="${finalShipDir}\${projectName}.zip" basedir="${buildTmpZipRoot}"/>
+	</target>
+
+	<target name="all" depends="clean,zipfile">
+		<echo message="Completed build of ${projectName}.zip" />
+	</target>
+
+</project>

@@ -1,0 +1,43 @@
+################################################
+# Common properties used by all the MS0S components when building
+################################################
+
+################################################
+# Various root directories
+################################################
+# Top of the tree where I've installed eclipse
+eclipseHome         =c:\\Eclipse 44\\eclipse
+
+# Where are the core Eclipse plugins based 
+eclipsePluginsHome  =${eclipseHome}\\plugins
+
+# Where are the MQ plugins and jars
+mqHome = c:\\Program Files\\IBM\\MQ
+mqPluginsHome       = ${mqHome}\\MQExplorer\\eclipse\\plugins
+mqJarsHome          = ${mqHome}\\java\\lib
+
+
+################################################
+# Other definitions
+################################################
+defaultPluginVersion=9.0.0.0
+
+srcPath=${basedir}\\src
+
+javac=c:\\program files\\ibm\\java70\\bin\\javac.exe
+pdfDoc=ms0s-1.7.pdf
+
+
+
+################################################
+# Output trees 
+################################################
+buildRoot        =${basedir}\\bin
+buildTmp         =${buildRoot}\\tmp
+buildClassesPath =${buildRoot}\\classes
+buildShip        =${buildRoot}\\ship
+buildTmpZipRoot  =${buildTmp}\\p
+
+# The final output tree in the build process
+finalShipDir          =${basedir}\\..\\ship
+
