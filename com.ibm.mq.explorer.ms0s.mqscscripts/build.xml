@@ -79,8 +79,14 @@
 		<copy todir="${buildPluginPath}\META-INF" file="${basedir}\META-INF\MANIFEST.MF" />
 		<copy todir="${buildPluginPath}" file="${basedir}\plugin.xml" />
 	</target>
+	
+	<target name="javadoc" >
+			 <delete failonerror="false" dir="${basedir}\doc" />
+			<my.javadoc />
+		</target>
 
-	<target name="zipfile" depends="jar,otherContents">
+
+	<target name="zipfile" depends="jar,otherContents,javadoc">
 		<zip destfile="${buildShip}\${projectName}.zip" basedir="${buildTmpZipRoot}">
 		</zip>
 	</target>

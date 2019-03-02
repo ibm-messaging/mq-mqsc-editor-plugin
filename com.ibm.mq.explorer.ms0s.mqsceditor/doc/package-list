@@ -1,7 +1,8 @@
-com.ibm.mq.explorer.ms0s.mqscscripts
-com.ibm.mq.explorer.ms0s.mqscscripts.actions
-com.ibm.mq.explorer.ms0s.mqscscripts.gui
-com.ibm.mq.explorer.ms0s.mqscscripts.pages
-com.ibm.mq.explorer.ms0s.mqscscripts.preferences
-com.ibm.mq.explorer.ms0s.mqscscripts.threads
-com.ibm.mq.explorer.ms0s.mqscscripts.tree
+com.ibm.mq.explorer.ms0s.mqsceditor
+com.ibm.mq.explorer.ms0s.mqsceditor.doc
+com.ibm.mq.explorer.ms0s.mqsceditor.events
+com.ibm.mq.explorer.ms0s.mqsceditor.gui
+com.ibm.mq.explorer.ms0s.mqsceditor.lang
+com.ibm.mq.explorer.ms0s.mqsceditor.model
+com.ibm.mq.explorer.ms0s.mqsceditor.rules
+com.ibm.mq.explorer.ms0s.mqsceditor.util
